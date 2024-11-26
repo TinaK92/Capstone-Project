@@ -10,3 +10,5 @@ class WatchlistMovie(db.Model):
     watchlist_id = db.Column(db.Integer, db.ForeignKey('watchlists.id'), primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'), primary_key=True)
 
+    movie = db.relationship('Movie', back_populates='watchlist_movies')
+    watchlist = db.relationship('Watchlist', back_populates='watchlist_movies')

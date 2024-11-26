@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 import requests
 
+
 # Loading my enviorment variables from my .env
 load_dotenv()
 
@@ -46,7 +47,7 @@ def search_movies():
 def get_all_movies():
     movies = Movie.query.all()
     movie_list = [movie.to_dict() for movie in movies]
-    return movie_list
+    return jsonify(movie_list)
 
 
 # Get All User Movies
@@ -64,6 +65,21 @@ def get_movie_details(id):
         return movie_details.to_dict(), 200
     else:
         return {"error": "Movie not found"}, 404
+    
+# Check if a Movie Exists
+@movie_routes.route("/exists", methods=["GET"])
+def check_movie_exists():
+    name = request.args.get("name")
+    release_year = request.args.get("release_year")
+
+    if not name or not release_year:
+        return {"error": "Missing parameters"}, 400
+
+    existing_movie = Movie.query.filter_by(name=name, release_year=release_year).first()
+    if existing_movie:
+        return {"exists": True}, 200
+    else:
+        return {"exists": False}, 200
 
 
 # Post A New Movie --------------------------------------
@@ -83,7 +99,12 @@ def create_movie():
     if not data.get("image_url"):
         errors["image_url"] = "Movie image is required"
     if errors:
-        return ({"errors": errors}), 400
+        return jsonify({"errors": errors}), 400
+    
+    existing_movie = Movie.query.filter_by(name=data["name"], release_year=data["release_year"]).first()
+    if existing_movie:
+        return jsonify({"error": "This movie has already been added to the database."}), 400
+
 
     new_movie = Movie(
         user_id=current_user.id,
@@ -95,27 +116,35 @@ def create_movie():
 
     db.session.add(new_movie)
     db.session.commit()
-    return (new_movie.to_dict()), 201
+    return jsonify(new_movie.to_dict()), 201
 
 
 # Update A Movie
-@movie_routes.route("/<int:id>/edit", methods=["PUT"])
+@movie_routes.route("/<int:movie_id>/edit", methods=["PUT"])
 @login_required
-def update_movie(id):
-    movie = Movie.query.get(id)
+def update_movie(movie_id):
+    # Get the movie from the database
+    movie = Movie.query.get(movie_id)
+
     if not movie:
         return {"error": "Movie not found"}, 404
-    form = MovieForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if form.validate_on_submit():
-        movie.name = form.name.data
-        movie.description = form.description.data
-        movie.release_year = form.release_year.data
+    # Check if the current user is the owner of the movie
+    if movie.user_id != current_user.id:
+        return {"error": "Unauthorized"}, 403
 
-        db.session.commit()
-        return movie.to_dict(), 200
-    return {"errors": form.errors}, 400
+    # Parse the request JSON for the description
+    data = request.get_json()
+    description = data.get("description")
+
+    if not description or not description.strip():
+        return {"error": "Description cannot be empty"}, 400
+
+    # Update the description and save to the database
+    movie.description = description
+    db.session.commit()
+
+    return movie.to_dict(), 200
 
 
 # Delete A Movie
@@ -127,6 +156,6 @@ def delete_movie(id):
         return {"error": "Movie not found"}, 404
     if movie.user_id != current_user.id:
         return {"error": "Unauthorized"}, 403
-    db.session.execute(movie)
+    db.session.delete(movie)
     db.session.commit()
     return {"message": "Movie has been successfully deleted"}, 200

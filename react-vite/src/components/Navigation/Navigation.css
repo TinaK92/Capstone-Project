@@ -4,11 +4,39 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #3a3a3c;
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 100px;
   text-decoration: none;
+  align-self: center;	
+}
+
+@font-face {
+	src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/TINY5x3GX.woff2');
+	font-family:'TINY 5x3';
+	font-style: normal;
+	font-weight: 85 300;
+  text-shadow: -1px -1px 0 rgba(#fff, .4), 1px -1px 0 rgba(#fff, .4), -1px 1px 0 rgba(#fff, .4), 1px 1px 0 rgba(#fff, .4), 0 -2px 8px, 0 0 2px, 0 0 5px #ebbb4a, 0 0 15px #ebbb4a, 0 0 2px #ebbb4a;
+}
+
+.logo {
+	--axis: 20;
+
+	color: #fefefe;
+	font-family:'TINY 5x3';
+	font-weight: var(--axis);	
+	text-shadow: -1px -1px 0 rgba(#fff, .4), 1px -1px 0 rgba(#fff, .4), -1px 1px 0 rgba(#fff, .4), 1px 1px 0 rgba(#fff, .4), 0 -2px 8px, 0 0 2px, 0 0 5px #ebbb4a, 0 0 15px #ebbb4a, 0 0 2px #ebbb4a;
+  
+}
+
+.search-form {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  align-self: center;
 }
 
 .profile-div {
@@ -16,3 +44,4 @@
   justify-self: flex-end;
   font-size: 25px;
 }
+

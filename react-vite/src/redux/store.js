@@ -8,12 +8,14 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import movieReducer from "./movie";
 import movieDbReducer from "./themoviedb";
+import watchlistReducer from "./watchlist";
 
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   movies: movieReducer,
   movieDb: movieDbReducer,
+  watchlist: watchlistReducer,
 });
 
 let enhancer;

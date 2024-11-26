@@ -1,6 +1,7 @@
 
 import { useSelector } from "react-redux";
 import MovieCard from "../MovieCard/MovieCard";
+import './MovieList.css'
 
 const MovieList = () => {
   const movies = useSelector((state) => state.movieDb.movies);

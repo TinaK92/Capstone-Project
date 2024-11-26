@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -9,6 +9,7 @@ function LoginFormModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -27,6 +28,18 @@ function LoginFormModal() {
       closeModal();
     }
   };
+
+  const handleLoginDemo = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrors({});
+    return dispatch(
+      thunkLogin({
+        email: 'demo@aa.io',
+        password: 'password'
+      })
+    ).then(closeModal);
+  }
 
   return (
     <>
@@ -52,7 +65,10 @@ function LoginFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        <button className="login-btn" type="submit">Log In</button>
+        <button className="login-btn" onClick={handleLoginDemo}>
+          Login as Demo User
+        </button>
       </form>
     </>
   );

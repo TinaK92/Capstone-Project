@@ -84,22 +84,23 @@ export const fetchAddMovie = (formData) => async (dispatch) => {
 };
 
 // Update A Movie
-export const fetchUpdateMovie = (id, formData) => async (dispatch) => {
+export const fetchUpdateMovie = (movieId, updatedMovie) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/movies/${id}/edit`, {
-      method: "PUT",
-      body: formData,
-    });
-    if (response.ok) {
-      const updatedMovie = await response.json();
-      dispatch(updateMovie(updatedMovie));
-      return updatedMovie;
-    } else {
-      const errorText = await response.json();
-      return { errors: errorText };
-    }
+      const response = await fetch(`/api/movies/${movieId}/edit`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ description: updatedMovie.description }),
+      });
+
+      if (response.ok) {
+          const updatedMovieData = await response.json();
+          return updatedMovieData;
+      } else {
+          const error = await response.json();
+          return { error: error.error };
+      }
   } catch (error) {
-    return { errors: "An unexpected error has occured" };
+      return { error: "Failed to update the movie" };
   }
 };
 
@@ -123,39 +124,40 @@ export const fetchDeleteMovie = (id) => async (dispatch) => {
 
 // State
 const initialState = {
-  AllMovies: [],
-  WatchlistMovies: {},
+  allMovies: [],
+  watchlistMovies: {},
+  selectedMovie: {},
 };
 
 function movieReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_MOVIES:
-      return { ...state, AllMovies: action.payload };
+      return { ...state, allMovies: action.payload };
     case GET_A_MOVIE:
-      return { ...state, GET_A_MOVIE: action.payload };
+      return { ...state, selectedMovie: action.payload };
     case ADD_NEW_MOVIE:
-      return { ...state, AllMovies: [...state.AllMovies, action.payload] };
+      return { ...state, allMovies: [...state.allMovies, action.payload] };
     case UPDATE_MOVIE:
       return {
         ...state,
-        AllMovies: state.AllMovies.map((movie) =>
+        allMovies: state.allMovies.map((movie) =>
           movie.id === action.payload.id ? action.payload : movie
         ),
-        WatchlistMovies:
-          state.WatchlistMovies.id === action.payload.id
-            ? action.payload
-            : state.AllMovies,
+        watchlistMovies: {
+          ...state.watchlistMovies, 
+          [action.payload.id]: action.payload
+        }
       };
     case DELETE_MOVIE:
       return {
         ...state,
-        AllMovies: state.AllMovies.filter(
+        allMovies: state.allMovies.filter(
           (movie) => movie.id !== action.payload
         ),
-        WatchlistMovies:
-          state.WatchlistMovies.id === action.payload
+        watchlistMovies:
+          state.watchlistMovies.id === action.payload
             ? {}
-            : state.WatchlistMovies,
+            : state.watchlistMovies,
       };
     default:
       return state;
