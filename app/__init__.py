@@ -7,7 +7,7 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-from .api.movies_routes import movie_routes
+from .api.movie_routes import movie_routes
 from .api.watchlist_routes import watchlist_routes
 
 from .seeds import seed_commands
