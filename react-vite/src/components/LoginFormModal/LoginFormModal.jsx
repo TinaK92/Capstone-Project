@@ -9,7 +9,6 @@ function LoginFormModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -31,8 +30,6 @@ function LoginFormModal() {
 
   const handleLoginDemo = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setErrors({});
     return dispatch(
       thunkLogin({
         email: 'demo@aa.io',

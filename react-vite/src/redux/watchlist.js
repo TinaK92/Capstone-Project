@@ -204,20 +204,20 @@ function watchlistReducer(state = initialState, action) {
     case GET_WATCHLIST_DETAILS:
       console.log("Updating selectedWatchlist:", action.payload); // Debug log
       return { ...state, selectedWatchlist: action.payload };
-    case ADD_MOVIE_TO_WATCHLIST:
-      const updatedWatchlists = state.myWatchlists.map((watchlist) => {
-        if (watchlist.id === action.payload.watchlistId) {
+    case ADD_MOVIE_TO_WATCHLIST: 
+      // const updatedWatchlists = state.myWatchlists.map((watchlist) => {
+        // if (watchlist.id === action.payload.watchlistId) {
           return {
-            ...watchlist,
-            movies: [...(watchlist.movies || []), action.payload.movie], // Add movie to the watchlist
+            ...state,
+            movies: [...(state.watchlist.movies || []), action.payload.movie], // Add movie to the watchlist
           };
-        }
-        return watchlist;
-      });
-      return { ...state, myWatchlists: updatedWatchlists };
+        // }
+      //   return watchlist;
+      // });
+      // return { ...state, myWatchlists: updatedWatchlists };
     case CREATE_NEW_WATCHLIST:
       return { ...state, watchlist: action.payload };
-    case DELETE_MOVIE_FROM_WATCHLIST:
+    case DELETE_MOVIE_FROM_WATCHLIST: {
       const updatedMovies = state.selectedMovies.filter(
         (movie) => movie.id !== action.payload.movieId
       );
@@ -225,6 +225,7 @@ function watchlistReducer(state = initialState, action) {
         ...state,
         selectedMovies: updatedMovies,
       };
+    } 
     case DELETE_WATCHLIST:
       return {
         ...state,

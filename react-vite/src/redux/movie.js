@@ -84,7 +84,7 @@ export const fetchAddMovie = (formData) => async (dispatch) => {
 };
 
 // Update A Movie
-export const fetchUpdateMovie = (movieId, updatedMovie) => async (dispatch) => {
+export const fetchUpdateMovie = (movieId, updatedMovie) => async () => {
   try {
       const response = await fetch(`/api/movies/${movieId}/edit`, {
           method: "PUT",

@@ -1,17 +1,17 @@
 import { useDispatch } from "react-redux";
 import { fetchDeleteMovieFromWatchlist } from "../../redux/watchlist";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+// import { useState, useEffect } from "react";
+// import { useSelector } from "react-redux";
 
 const WatchlistMovieCard = ({ movie, watchlistId }) => {
   const dispatch = useDispatch();
 
-  const movieData = {
-    name: movie.title,
-    description: movie.overview,
-    release_year: movie.release_date ? movie.release_date.split("-")[0] : "N/A",
-    image_url: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
-  };
+  // const movieData = {
+  //   name: movie.title,
+  //   description: movie.overview,
+  //   release_year: movie.release_date ? movie.release_date.split("-")[0] : "N/A",
+  //   image_url: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
+  // };
 
   const handleRemoveMovie = async () => {
     if (!watchlistId) {
