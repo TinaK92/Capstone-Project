@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllMovies } from "../../redux/movie";
@@ -6,10 +6,10 @@ import HomeMovie from "../HomeMovie/HomeMovie";
 import './HomePage.css';
 
 export const HomePage = () => {
-    const { id } = useParams();
+    // const { id } = useParams();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const user = useSelector((state) => state.session.user);
+    // const navigate = useNavigate();
+    // const user = useSelector((state) => state.session.user);
     const movies = useSelector((state) => state.movies.allMovies);
 
     useEffect(() => {

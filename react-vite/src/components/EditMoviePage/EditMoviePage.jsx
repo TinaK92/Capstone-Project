@@ -7,7 +7,7 @@ const EditMoviePage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const user = useSelector((state) => state.session.user);
+    // const user = useSelector((state) => state.session.user);
     const movie = useSelector((state) => state.movies.selectedMovie);
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState({});
