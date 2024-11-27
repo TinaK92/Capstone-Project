@@ -60,24 +60,36 @@ def get_movies_in_watchlist(watchlist_id):
 @watchlist_routes.route('/add_movie_to_watchlist/<int:watchlist_id>', methods=['POST'])
 @login_required
 def add_movie_to_watchlist(watchlist_id):
-    data = request.get_json()
-    movie_id = data.get('movie_id')
+    try:
+        data = request.get_json()
+        print("Request data:", data)  # Debug log
+        movie_id = data.get('movie_id')
+        print("Movie ID:", movie_id)  # Debug log
 
-    watchlist = Watchlist.query.filter_by(id=watchlist_id, user_id=current_user.id).first()
-    if not watchlist:
-        return jsonify({"error": "Watchlist not found"}), 404
+        watchlist = Watchlist.query.filter_by(id=watchlist_id, user_id=current_user.id).first()
+        if not watchlist:
+            print("Watchlist not found")  # Debug log
+            return jsonify({"error": "Watchlist not found"}), 404
 
-    movie = Movie.query.get(movie_id)
-    if not movie:
-        return jsonify({"error": "Movie not found"}), 404
+        movie = Movie.query.get(movie_id)
+        if not movie:
+            print("Movie not found")  # Debug log
+            return jsonify({"error": "Movie not found"}), 404
 
-    if movie in watchlist.movies:
-        return jsonify({"error": "Movie is already in the watchlist"}), 400
+        if movie in watchlist.movies:
+            print("Movie already in watchlist")  # Debug log
+            return jsonify({"error": "Movie is already in the watchlist"}), 400
 
-    watchlist.movies.append(movie)
-    db.session.commit()
+        watchlist.movies.append(movie)
+        db.session.commit()
 
-    return jsonify(movie.to_dict()), 200
+        print("Movie added to watchlist successfully:", movie.to_dict())  # Debug log
+        return jsonify(movie.to_dict()), 200
+
+    except Exception as e:
+        print("Error in add_movie_to_watchlist:", str(e))  # Debug log
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 
 # Create a WatchList
