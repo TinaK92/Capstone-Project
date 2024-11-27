@@ -110,7 +110,7 @@ export const fetchWatchlistDetails = (watchlistId) => async (dispatch) => {
 };
 export const fetchAddMovieToWatchlist = (watchlistId, movieId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/watchlist/${watchlistId}/movies`, {
+    const response = await fetch(`/api/watchlist/add_movie_to_watchlist/${watchlistId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ movie_id: movieId}),
@@ -209,7 +209,7 @@ function watchlistReducer(state = initialState, action) {
         // if (watchlist.id === action.payload.watchlistId) {
           return {
             ...state,
-            movies: [...(state.watchlist.movies || []), action.payload.movie], // Add movie to the watchlist
+            selectedMovies: [...state.selectedMovies, action.payload],
           };
         // }
       //   return watchlist;

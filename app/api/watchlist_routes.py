@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models.watchlist import Watchlist, db
+# from app.models.watchlist import Watchlist, db
 from app.models.watchlist_movie import watchlist_movies
 from dotenv import load_dotenv
 from app.forms.create_watchlist_form import CreateWatchlistForm
-from app.models import Movie
+from app.models import Watchlist, Movie, db
 
 load_dotenv()
 
@@ -51,13 +51,13 @@ def get_movies_in_watchlist(watchlist_id):
     if not watchlist:
         return {"error": "Watchlist not found"}, 404
 
-    watchlist_movie_list = watchlist_movies.query.filter_by(watchlist_id=watchlist_id).all()
+    # watchlist_movie_list = watchlist_movies.query.filter_by(watchlist_id=watchlist_id).all()
     # Ensure the relationship works here
-    movie_list = [wm.movie.to_dict() for wm in watchlist_movie_list if wm.movie]
+    movie_list = [movie.to_dict() for movie in watchlist.movies]
     return jsonify(movie_list), 200
 
 # Add a movie to a watchlist
-@watchlist_routes.route('<int:watchlist_id>/movies', methods=["POST"])
+@watchlist_routes.route('/add_movie_to_watchlist/<int:watchlist_id>', methods=['POST'])
 @login_required
 def add_movie_to_watchlist(watchlist_id):
     data = request.get_json()
@@ -65,20 +65,19 @@ def add_movie_to_watchlist(watchlist_id):
 
     watchlist = Watchlist.query.filter_by(id=watchlist_id, user_id=current_user.id).first()
     if not watchlist:
-        return {"error": "Watchlist not found"}, 404
-    
+        return jsonify({"error": "Watchlist not found"}), 404
+
     movie = Movie.query.get(movie_id)
     if not movie:
-        return {"error": "Movie not found"}, 404
-    
-    existing_entry = watchlist_movies.query.filter_by(watchlist_id=watchlist_id, movie_id=movie_id).first()
-    if existing_entry:
-        return {"error": "Move is already in the watchlist"}, 400
-    
-    new_watchlist_movie = WatchlistMovie(watchlist_id=watchlist_id, movie_id=movie_id)
-    db.session.add(new_watchlist_movie)
+        return jsonify({"error": "Movie not found"}), 404
+
+    if movie in watchlist.movies:
+        return jsonify({"error": "Movie is already in the watchlist"}), 400
+
+    watchlist.movies.append(movie)
     db.session.commit()
-    return {"message": "Movie added to watchlist successfully"}, 200
+
+    return jsonify(movie.to_dict()), 200
 
 
 # Create a WatchList
