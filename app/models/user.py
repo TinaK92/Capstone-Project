@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     # Relationships:
     movies = db.relationship(
         "Movie",
-        primaryjoin='"User".id == "Movie".user_id',
+        primaryjoin='User.id == Movie.user_id',
         back_populates="user",
         cascade="all, delete-orphan",
     )
