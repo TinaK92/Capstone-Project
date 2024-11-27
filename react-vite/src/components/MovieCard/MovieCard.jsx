@@ -2,9 +2,11 @@ import { useDispatch } from "react-redux";
 import { fetchAddMovie } from "../../redux/movie";
 import "./MovieCard.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [exists, setExists] = useState(false);
 
   const movieData = {
@@ -29,6 +31,7 @@ const MovieCard = ({ movie }) => {
   }, [movieData.name, movieData.release_year]);
   const handleAddMovie = () => {
     dispatch(fetchAddMovie(movieData));
+    navigate('/');
   };
 
   return (
