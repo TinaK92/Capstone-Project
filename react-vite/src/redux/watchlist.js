@@ -19,13 +19,13 @@ export const getWatchlistMovies = (movies) => {
   return {
     type: GET_WATCHLIST_MOVIES,
     payload: movies,
-  }
-}
+  };
+};
 
 export const getWatchlistDetails = (watchlist) => {
   return {
     type: GET_WATCHLIST_DETAILS,
-    payload: watchlist, 
+    payload: watchlist,
   };
 };
 
@@ -33,7 +33,7 @@ export const addMovieToWatchlist = (movie) => {
   return {
     type: ADD_MOVIE_TO_WATCHLIST,
     payload: movie,
-  }
+  };
 };
 
 export const createNewWatchlist = (watchlist) => {
@@ -61,33 +61,30 @@ export const deleteWatchlistAction = (watchlistId) => {
 export const fetchGetMyWatchlists = () => async (dispatch, getState) => {
   const currentUserId = getState()?.session?.user?.id;
   if (!currentUserId) {
-    return { errors: "User is not logged in."}
+    return { errors: "User is not logged in." };
   }
   try {
-    const response = await fetch(
-      `/api/watchlist/users/${currentUserId}`
-    );
+    const response = await fetch(`/api/watchlist/users/${currentUserId}`);
     if (response.ok) {
       const myWatchlist = await response.json();
       dispatch(getMyWatchlist(myWatchlist));
       return myWatchlist;
     }
   } catch (error) {
-    return { errors: "An error fetching watchlist has occured"}
+    return { errors: "An error fetching watchlist has occured" };
   }
 };
 
 export const fetchWatchlistMovies = (watchlistId) => async (dispatch) => {
   try {
     const response = await fetch(`/api/watchlist/${watchlistId}/movies`);
-    if (response.ok) {
-      const movies = await response.json();
-      console.log("Fetched Watchlist Movies:", movies); // Debug log
-      dispatch(getWatchlistMovies(movies));
-    } else {
+    if (!response.ok) {
       const errorText = await response.text();
       console.error("Error fetching watchlist movies:", errorText);
+      throw new Error("Failed to fetch movies");
     }
+    const movies = await response.json();
+    dispatch(getWatchlistMovies(movies));
   } catch (error) {
     console.error("Error fetching watchlist movies:", error);
   }
@@ -108,25 +105,29 @@ export const fetchWatchlistDetails = (watchlistId) => async (dispatch) => {
     console.error("Error fetching watchlist details:", error);
   }
 };
-export const fetchAddMovieToWatchlist = (watchlistId, movieId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/watchlist/add_movie_to_watchlist/${watchlistId}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ movie_id: movieId}),
-    });
-    if (response.ok) {
-      const movie = await response.json();
-      dispatch(addMovieToWatchlist(movie));
-      return movie;
-    } else {
-      const error = await response.json();
-      return { error: error.error };
+export const fetchAddMovieToWatchlist =
+  (watchlistId, movieId) => async (dispatch) => {
+    try {
+      const response = await fetch(
+        `/api/watchlist/add_movie_to_watchlist/${watchlistId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ movie_id: movieId }),
+        }
+      );
+      if (response.ok) {
+        const movie = await response.json();
+        dispatch(addMovieToWatchlist(movie));
+        return movie;
+      } else {
+        const error = await response.json();
+        return { error: error.error };
+      }
+    } catch (error) {
+      return { error: "Failed to add movie to watchlist" };
     }
-  } catch (error) {
-    return { error: "Failed to add movie to watchlist" };
-  }
-};
+  };
 
 export const fetchCreateNewWatchlist = (formData) => async (dispatch) => {
   try {
@@ -148,24 +149,30 @@ export const fetchCreateNewWatchlist = (formData) => async (dispatch) => {
   }
 };
 
-export const fetchDeleteMovieFromWatchlist = (watchlistId, movieId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/watchlist/${watchlistId}/movies/${movieId}`, {
-      method: "DELETE",
-    });
-    if (response.ok) {
-      dispatch(deleteMovieFromWatchlist(movieId, watchlistId)); // Dispatch the action
-      return { message: "Movie successfully removed from watchlist" };
-    } else {
-      const error = await response.json();
-      console.error("Error removing movie from watchlist:", error);
-      return { error: error.error || "Failed to remove movie from watchlist" };
+export const fetchDeleteMovieFromWatchlist =
+  (watchlistId, movieId) => async (dispatch) => {
+    try {
+      const response = await fetch(
+        `/api/watchlist/${watchlistId}/movies/${movieId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        dispatch(deleteMovieFromWatchlist(movieId, watchlistId)); // Dispatch the action
+        return { message: "Movie successfully removed from watchlist" };
+      } else {
+        const error = await response.json();
+        console.error("Error removing movie from watchlist:", error);
+        return {
+          error: error.error || "Failed to remove movie from watchlist",
+        };
+      }
+    } catch (error) {
+      console.error("Error deleting movie from watchlist:", error);
+      return { error: "An error occurred while removing the movie" };
     }
-  } catch (error) {
-    console.error("Error deleting movie from watchlist:", error);
-    return { error: "An error occurred while removing the movie" };
-  }
-};
+  };
 
 export const fetchDeleteWatchlist = (watchlistId) => async (dispatch) => {
   try {
@@ -198,23 +205,26 @@ function watchlistReducer(state = initialState, action) {
   switch (action.type) {
     case GET_MY_WATCHLISTS:
       return { ...state, myWatchlists: action.payload };
-    case GET_WATCHLIST_MOVIES:
-      console.log("Updating selectedMovies:", action.payload); // Debug log
-      return { ...state, selectedMovies: action.payload };
+      case GET_WATCHLIST_MOVIES:
+        console.log("Reducer: Updating selectedMovies with payload:", action.payload); // Debugging
+        return {
+          ...state,
+          selectedMovies: action.payload.length ? action.payload : state.selectedMovies,
+        };
     case GET_WATCHLIST_DETAILS:
       console.log("Updating selectedWatchlist:", action.payload); // Debug log
       return { ...state, selectedWatchlist: action.payload };
-    case ADD_MOVIE_TO_WATCHLIST: 
+    case ADD_MOVIE_TO_WATCHLIST:
       // const updatedWatchlists = state.myWatchlists.map((watchlist) => {
-        // if (watchlist.id === action.payload.watchlistId) {
-          return {
-            ...state,
-            selectedMovies: [...state.selectedMovies, action.payload],
-          };
-        // }
-      //   return watchlist;
-      // });
-      // return { ...state, myWatchlists: updatedWatchlists };
+      // if (watchlist.id === action.payload.watchlistId) {
+      return {
+        ...state,
+        selectedMovies: [...state.selectedMovies, action.payload],
+      };
+    // }
+    //   return watchlist;
+    // });
+    // return { ...state, myWatchlists: updatedWatchlists };
     case CREATE_NEW_WATCHLIST:
       return { ...state, watchlist: action.payload };
     case DELETE_MOVIE_FROM_WATCHLIST: {
@@ -225,7 +235,7 @@ function watchlistReducer(state = initialState, action) {
         ...state,
         selectedMovies: updatedMovies,
       };
-    } 
+    }
     case DELETE_WATCHLIST:
       return {
         ...state,

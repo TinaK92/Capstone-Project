@@ -18,7 +18,9 @@ const WatchlistDetails = () => {
     const fetchDetails = async () => {
       setLoading(true);
       try {
+        console.log("Fetching watchlist details for ID:", id);
         await dispatch(fetchWatchlistDetails(id)); // Fetch watchlist details
+        console.log("Fetching watchlist movies for ID:", id);
         await dispatch(fetchWatchlistMovies(id)); // Fetch movies in the watchlist
       } catch (error) {
         console.error("Error fetching details:", error);
@@ -33,7 +35,7 @@ const WatchlistDetails = () => {
     return <p>Loading...</p>;
   }
 
-  if (!watchlist) {
+  if (!id) {
     return <p>Error loading watchlist details.</p>;
   }
 

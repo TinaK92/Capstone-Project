@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 # from app.models.watchlist import Watchlist, db
-from app.models.watchlist_movie import watchlist_movies
+from app.models.watchlist_movie import WatchlistMovie
 from dotenv import load_dotenv
 from app.forms.create_watchlist_form import CreateWatchlistForm
 from app.models import Watchlist, Movie, db
@@ -51,8 +51,9 @@ def get_movies_in_watchlist(watchlist_id):
     if not watchlist:
         return {"error": "Watchlist not found"}, 404
 
-    # watchlist_movie_list = watchlist_movies.query.filter_by(watchlist_id=watchlist_id).all()
-    # Ensure the relationship works here
+    # Debugging logs
+    print(f"Watchlist ID: {watchlist_id}, Movies: {watchlist.movies}")
+
     movie_list = [movie.to_dict() for movie in watchlist.movies]
     return jsonify(movie_list), 200
 
@@ -60,6 +61,8 @@ def get_movies_in_watchlist(watchlist_id):
 @watchlist_routes.route('/add_movie_to_watchlist/<int:watchlist_id>', methods=['POST'])
 @login_required
 def add_movie_to_watchlist(watchlist_id):
+    data = request.get_json()
+    print(f"Incoming payload: {data}")  # Debugging log
     try:
         data = request.get_json()
         print("Request data:", data)  # Debug log
@@ -128,7 +131,7 @@ def delete_movie_from_watchlist(watchlist_id, movie_id):
         return {"error": "Watchlist not found or unauthorized"}, 404
 
     # Validate that the movie exists in the watchlist
-    watchlist_movie = watchlist_movies.query.filter_by(watchlist_id=watchlist_id, movie_id=movie_id).first()
+    watchlist_movie = WatchlistMovie.query.filter_by(watchlist_id=watchlist_id, movie_id=movie_id).first()
     if not watchlist_movie:
         return {"error": "Movie not found in this watchlist"}, 404
 
