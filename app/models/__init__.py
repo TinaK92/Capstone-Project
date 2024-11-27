@@ -6,7 +6,7 @@ from .watchlist import Watchlist
 from .watchlist_movie import WatchlistMovie
 from .comment import Comment
 from .category import Category
-from .movie_category import MovieCategory
+from .movie_category import movie_categories
 from .review import Review
 
 
