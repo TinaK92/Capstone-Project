@@ -10,7 +10,7 @@ class Category(db.Model):
     description = db.Column(db.String(150), nullable=False)
 
     # Relationships
-    movies = db.relationship("Movie", secondary='movie_categories', back_populates="categories", lazy='dynamic')
+    movies = db.relationship("MovieCategory", secondary='movie_categories', back_populates="categories", lazy='dynamic')
    
     def to_dict(self):
         return {

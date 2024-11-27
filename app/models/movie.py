@@ -17,7 +17,7 @@ class Movie(db.Model):
 
     # Relationships:
     categories = db.relationship(
-        'Category', secondary='movie_categories', back_populates='movies', lazy='dynamic')
+        'MovieCategory', secondary='movie_categories', back_populates='movies', lazy='dynamic')
     comments = db.relationship(
         'Comment', back_populates='movie', cascade="all, delete-orphan"
     )
