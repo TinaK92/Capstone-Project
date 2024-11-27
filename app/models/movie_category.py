@@ -13,7 +13,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 #     categories = db.relationship("Category", back_populates="movies")
 
 class MovieCategory(db.Model):
-    __tablename__ = '"Movie_categories"'
+    __tablename__ = "movie_categories"
     if environment == "production":
         __table_args__ = {"schema": SCHEMA}
 
