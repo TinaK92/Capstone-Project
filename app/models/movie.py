@@ -17,7 +17,7 @@ class Movie(db.Model):
 
     # Relationships:
     categories = db.relationship(
-        'MovieCategory', secondary='movie_categories', back_populates='movies', lazy='dynamic')
+        'Category', secondary='movie_categories', back_populates='movies', lazy='dynamic')
     comments = db.relationship(
         'Comment', back_populates='movie', cascade="all, delete-orphan"
     )
@@ -31,6 +31,7 @@ class Movie(db.Model):
         'User', back_populates='movies'
     )
     watchlist_movies = db.relationship('WatchlistMovie', back_populates='movie')
+
 
     def to_dict(self):
         return {
