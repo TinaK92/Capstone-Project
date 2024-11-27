@@ -12,7 +12,8 @@ class Watchlist(db.Model):
     # Relationships
     user = db.relationship("User", back_populates="watchlists")
     movies = db.relationship("Movie", secondary='watchlist_movies', back_populates="watchlists")
-    watchlist_movies = db.relationship('WatchlistMovie', back_populates='watchlist', cascade="all, delete-orphan")
+    
+    # watchlist_movies = db.relationship('WatchlistMovie', back_populates='watchlist', cascade="all, delete-orphan")
     
 
 

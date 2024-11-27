@@ -30,7 +30,7 @@ class Movie(db.Model):
     user = db.relationship(
         'User', back_populates='movies'
     )
-    watchlist_movies = db.relationship('WatchlistMovie', back_populates='movie')
+    # watchlist_movies = db.relationship('WatchlistMovie', back_populates='movie')
 
 
     def to_dict(self):
