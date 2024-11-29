@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2d08363f1418
+Revision ID: f8b465d62aa3
 Revises: 
-Create Date: 2024-11-27 19:17:24.896421
+Create Date: 2024-11-28 23:13:00.524223
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2d08363f1418'
+revision = 'f8b465d62aa3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -38,7 +38,7 @@ def upgrade():
     sa.UniqueConstraint('username')
     )
     op.create_table('movies',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('description', sa.String(length=2000), nullable=False),
@@ -50,7 +50,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('watchlists',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
@@ -82,12 +82,11 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('watchlist_movies',
-    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('watchlist_id', sa.Integer(), nullable=False),
     sa.Column('movie_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['movie_id'], ['movies.id'], ),
     sa.ForeignKeyConstraint(['watchlist_id'], ['watchlists.id'], ),
-    sa.PrimaryKeyConstraint('id', 'watchlist_id', 'movie_id')
+    sa.PrimaryKeyConstraint('watchlist_id', 'movie_id')
     )
     # ### end Alembic commands ###
 

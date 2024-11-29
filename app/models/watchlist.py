@@ -10,10 +10,6 @@ class Watchlist(db.Model):
         db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False
     )
     name = db.Column(db.String(100), nullable=False)
-    # created_at = db.Column(db.DateTime, default=db.func.now())
-    # updated_at = db.Column(
-    #     db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now()
-    # )
 
     # Relationships:
     user = db.relationship('User', back_populates='watchlists')
@@ -25,6 +21,4 @@ class Watchlist(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "name": self.name,
-            # "created_at": self.created_at,
-            # "updated_at": self.updated_at,
         }
