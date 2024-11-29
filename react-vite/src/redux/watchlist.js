@@ -105,29 +105,28 @@ export const fetchWatchlistDetails = (watchlistId) => async (dispatch) => {
     console.error("Error fetching watchlist details:", error);
   }
 };
-export const fetchAddMovieToWatchlist =
-  (watchlistId, movieId) => async (dispatch) => {
-    try {
-      const response = await fetch(
-        `/api/watchlist/add_movie_to_watchlist/${watchlistId}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ movie_id: movieId }),
-        }
-      );
-      if (response.ok) {
-        const movie = await response.json();
-        dispatch(addMovieToWatchlist(movie));
-        return movie;
-      } else {
-        const error = await response.json();
-        return { error: error.error };
-      }
-    } catch (error) {
-      return { error: "Failed to add movie to watchlist" };
+
+export const fetchAddMovieToWatchlist = (watchlistId, movieId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/watchlist/${watchlistId}/movies`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ movie_id: movieId }),
+    });
+
+    if (response.ok) {
+      const movie = await response.json();
+      dispatch(addMovieToWatchlist(movie));
+      return movie;
+    } else {
+      const error = await response.json();
+      return { error: error.error };
     }
-  };
+  } catch (error) {
+    return { error: "Failed to add movie to watchlist" };
+  }
+};
+
 
 export const fetchCreateNewWatchlist = (formData) => async (dispatch) => {
   try {
@@ -205,26 +204,25 @@ function watchlistReducer(state = initialState, action) {
   switch (action.type) {
     case GET_MY_WATCHLISTS:
       return { ...state, myWatchlists: action.payload };
-      case GET_WATCHLIST_MOVIES:
-        console.log("Reducer: Updating selectedMovies with payload:", action.payload); // Debugging
-        return {
-          ...state,
-          selectedMovies: action.payload.length ? action.payload : state.selectedMovies,
-        };
+    case GET_WATCHLIST_MOVIES:
+      console.log(
+        "Reducer: Updating selectedMovies with payload:",
+        action.payload
+      ); // Debugging
+      return {
+        ...state,
+        selectedMovies: action.payload.length
+          ? action.payload
+          : state.selectedMovies,
+      };
     case GET_WATCHLIST_DETAILS:
       console.log("Updating selectedWatchlist:", action.payload); // Debug log
       return { ...state, selectedWatchlist: action.payload };
     case ADD_MOVIE_TO_WATCHLIST:
-      // const updatedWatchlists = state.myWatchlists.map((watchlist) => {
-      // if (watchlist.id === action.payload.watchlistId) {
       return {
         ...state,
         selectedMovies: [...state.selectedMovies, action.payload],
       };
-    // }
-    //   return watchlist;
-    // });
-    // return { ...state, myWatchlists: updatedWatchlists };
     case CREATE_NEW_WATCHLIST:
       return { ...state, watchlist: action.payload };
     case DELETE_MOVIE_FROM_WATCHLIST: {
