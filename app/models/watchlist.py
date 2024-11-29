@@ -13,8 +13,8 @@ class Watchlist(db.Model):
 
     # Relationships:
     user = db.relationship('User', back_populates='watchlists')
-    watchlist_movies = db.relationship('WatchlistMovie', back_populates='watchlist', cascade='all, delete-orphan')
-    movies = db.relationship("Movie", secondary="watchlist_movies", back_populates="watchlists")
+    watchlist_movies = db.relationship('WatchlistMovie', back_populates='watchlist', cascade='all, delete-orphan', overlaps="movies")
+    movies = db.relationship("Movie", secondary="watchlist_movies", back_populates="watchlists", overlaps="watchlist_movies")
 
     def to_dict(self):
         return {

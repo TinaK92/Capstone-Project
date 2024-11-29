@@ -20,11 +20,11 @@ class Movie(db.Model):
 
     # Relationships
     user = db.relationship('User', back_populates='movies')
-    watchlist_movies = db.relationship('WatchlistMovie', back_populates='movie', cascade='all, delete-orphan')
+    watchlist_movies = db.relationship('WatchlistMovie', back_populates='movie', cascade='all, delete-orphan', overlaps="watchlists")
     movie_categories = db.relationship('MovieCategory', back_populates='movie', cascade='all, delete-orphan')
     comments = db.relationship('Comment', back_populates='movie', cascade='all, delete-orphan')
     reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
-    watchlists = db.relationship("Watchlist", secondary="watchlist_movies", back_populates="movies")
+    watchlists = db.relationship("Watchlist", secondary="watchlist_movies", back_populates="movies", overlaps="watchlist_movies")
 
     def to_dict(self):
         return {
