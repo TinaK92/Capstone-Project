@@ -10,14 +10,14 @@ class Category(db.Model):
     description = db.Column(db.String(150), nullable=False)
 
     # Relationships
-    # movies = db.relationship("Movie", secondary='movie_categories', back_populates="categories")
-    movies = db.relationship(
-            "Movie",
-            secondary=add_prefix_for_prod("movie_categories"),  # Use the correct table name
-            back_populates="categories",
-            overlaps="movie_categories"
-        )
-    movie_categories = db.relationship("MovieCategory", back_populates="category", overlaps="movies")
+    movie_categories = db.relationship('MovieCategory', back_populates='category', cascade='all, delete-orphan')
+    # movies = db.relationship(
+    #         "Movie",
+    #         secondary=add_prefix_for_prod("movie_categories"),  # Use the correct table name
+    #         back_populates="categories",
+    #         overlaps="movie_categories"
+    #     )
+    # movie_categories = db.relationship("MovieCategory", back_populates="category", overlaps="movies")
 
     def to_dict(self):
         return {

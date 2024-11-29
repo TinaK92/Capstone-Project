@@ -21,21 +21,26 @@ class User(db.Model, UserMixin):
     )
 
     # Relationships:
-    movies = db.relationship(
-        "Movie",
-        primaryjoin='User.id == Movie.user_id',
-        back_populates="user",
-        cascade="all, delete-orphan",
-    )
-    watchlists = db.relationship(
-        "Watchlist", back_populates="user", cascade="all, delete-orphan"
-    )
-    comments = db.relationship(
-        "Comment", back_populates="user", cascade="all, delete-orphan"
-    )
-    reviews = db.relationship(
-        "Review", back_populates="user", cascade="all, delete-orphan"
-    )
+    movies = db.relationship('Movie', back_populates='user', cascade='all, delete-orphan')
+    watchlists = db.relationship('WatchList', back_populates='user', cascade='all, delete-orphan')
+    comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
+    reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
+
+    # movies = db.relationship(
+    #     "Movie",
+    #     primaryjoin='User.id == Movie.user_id',
+    #     back_populates="user",
+    #     cascade="all, delete-orphan",
+    # )
+    # watchlists = db.relationship(
+    #     "Watchlist", back_populates="user", cascade="all, delete-orphan"
+    # )
+    # comments = db.relationship(
+    #     "Comment", back_populates="user", cascade="all, delete-orphan"
+    # )
+    # reviews = db.relationship(
+    #     "Review", back_populates="user", cascade="all, delete-orphan"
+    # )
 
     @property
     def password(self):

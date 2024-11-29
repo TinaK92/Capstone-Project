@@ -21,5 +21,7 @@ class MovieCategory(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("categories.id")), primary_key=True)
 
     # Relationships
-    movie = db.relationship("Movie", back_populates="movie_categories", overlaps="categories,movies")
-    category = db.relationship("Category", back_populates="movie_categories", overlaps="categories,movies")
+    movie = db.relationship('Movie', back_populates='movie_categories')
+    category = db.relationship('Category', back_populates='movie_categories')
+    # movie = db.relationship("Movie", back_populates="movie_categories", overlaps="categories,movies")
+    # category = db.relationship("Category", back_populates="movie_categories", overlaps="categories,movies")

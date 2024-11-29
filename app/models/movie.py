@@ -71,30 +71,35 @@ class Movie(db.Model):
     )
 
     # Relationships
-    # categories = db.relationship("Category", secondary="movie_categories", back_populates="movies", lazy="dynamic")
-    categories = db.relationship(
-        "Category",
-        secondary="movie_categories",  # Use the model's __tablename__
-        back_populates="movies",
-    )
-    movie_categories = db.relationship(
-        "MovieCategory", back_populates="movie", overlaps="categories"
-    )
-    comments = db.relationship(
-        "Comment", back_populates="movie", cascade="all, delete-orphan"
-    )
-    reviews = db.relationship(
-        "Review", back_populates="movie", cascade="all, delete-orphan"
-    )
-    watchlist_movies = db.relationship(
-        "WatchlistMovie", back_populates="movie", cascade="all, delete-orphan"
-    )
-    user = db.relationship("User", back_populates="movies")
-    watchlists = db.relationship(
-        "Watchlist",
-        secondary="watchlist_movies",  # Ensure this matches your table name
-        back_populates="movies",
-    )
+    user = db.relationship('User', back_populates='movies')
+    watchlist_movies = db.relationship('WatchlistMovie', back_populates='movie', cascade='all, delete-orphan')
+    movie_categories = db.relationship('MovieCategory', back_populates='movie', cascade='all, delete-orphan')
+    comments = db.relationship('Comment', back_populates='movie', cascade='all, delete-orphan')
+    reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
+
+    # categories = db.relationship(
+    #     "Category",
+    #     secondary="movie_categories",  # Use the model's __tablename__
+    #     back_populates="movies",
+    # )
+    # movie_categories = db.relationship(
+    #     "MovieCategory", back_populates="movie", overlaps="categories"
+    # )
+    # comments = db.relationship(
+    #     "Comment", back_populates="movie", cascade="all, delete-orphan"
+    # )
+    # reviews = db.relationship(
+    #     "Review", back_populates="movie", cascade="all, delete-orphan"
+    # )
+    # watchlist_movies = db.relationship(
+    #     "WatchlistMovie", back_populates="movie", cascade="all, delete-orphan"
+    # )
+    # user = db.relationship("User", back_populates="movies")
+    # watchlists = db.relationship(
+    #     "Watchlist",
+    #     secondary="watchlist_movies",  # Ensure this matches your table name
+    #     back_populates="movies",
+    # )
 
     def to_dict(self):
         return {

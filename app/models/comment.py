@@ -11,8 +11,10 @@ class Comment(db.Model):
     content = db.Column(db.String(500), nullable=True)
 
     # Relationships
-    user = db.relationship("User", back_populates="comments")
-    movie = db.relationship("Movie", back_populates="comments")
+    user = db.relationship('User', back_populates='comments')
+    movie = db.relationship('Movie', back_populates='comments')
+    # user = db.relationship("User", back_populates="comments")
+    # movie = db.relationship("Movie", back_populates="comments")
 
     def to_dict(self):
         return {
