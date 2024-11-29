@@ -77,6 +77,21 @@ class Movie(db.Model):
     comments = db.relationship('Comment', back_populates='movie', cascade='all, delete-orphan')
     reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
 
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "name": self.name,
+            "description": self.description,
+            "release_year": self.release_year,
+            "image_url": self.image_url,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }
+
+
+
     # categories = db.relationship(
     #     "Category",
     #     secondary="movie_categories",  # Use the model's __tablename__
@@ -100,15 +115,3 @@ class Movie(db.Model):
     #     secondary="watchlist_movies",  # Ensure this matches your table name
     #     back_populates="movies",
     # )
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "name": self.name,
-            "description": self.description,
-            "release_year": self.release_year,
-            "image_url": self.image_url,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at,
-        }

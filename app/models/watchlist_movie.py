@@ -40,7 +40,7 @@ class WatchlistMovie(db.Model):
     movie_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("movies.id")), nullable=False, primary_key=True)
 
     # Relationships
-    watchlist = db.relationship('WatchList', back_populates='watchlist_movies')
+    watchlist = db.relationship('Watchlist', back_populates='watchlist_movies')
     movie = db.relationship('Movie', back_populates='watchlist_movies')
     # watchlist = db.relationship("Watchlist", back_populates="watchlist_movies")
     # movie = db.relationship("Movie", back_populates="watchlist_movies")
