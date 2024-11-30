@@ -1,11 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Comment(db.Model):
-    if environment == "production":
-    op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-    # __tablename__ = "comments"
-    # if environment == "production":
-    #     __table_args__ = {'schema': SCHEMA}
+    __tablename__ = add_prefix_for_prod("comments")  # Prefix table name for production schema
+    __table_args__ = {'schema': SCHEMA} if environment == "production" else None
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)

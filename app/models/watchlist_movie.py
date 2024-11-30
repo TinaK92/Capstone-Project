@@ -2,11 +2,8 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 #   JOIN TABLE
 class WatchlistMovie(db.Model):
-    if environment == "production":
-    op.execute(f"ALTER TABLE watchlist_movies SET SCHEMA {SCHEMA};")
-    # __tablename__ = "watchlist_movies"
-    # if environment == "production":
-    #     __table_args__ = {"schema": SCHEMA}
+    __tablename__ = add_prefix_for_prod("watchlist_movies")  # Prefix table name for production schema
+    __table_args__ = {'schema': SCHEMA} if environment == "production" else None
 
     watchlist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("watchlists.id")), nullable=False, primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("movies.id")), nullable=False, primary_key=True)

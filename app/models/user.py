@@ -4,12 +4,8 @@ from flask_login import UserMixin
 
 
 class User(db.Model, UserMixin):
-    if environment == "production":
-    op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-    # __tablename__ = "users"
-
-    # if environment == "production":
-    #     __table_args__ = {"schema": SCHEMA}
+    __tablename__ = add_prefix_for_prod("users")  # Prefix table name for production schema
+    __table_args__ = {'schema': SCHEMA} if environment == "production" else None
 
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(250), nullable=False)

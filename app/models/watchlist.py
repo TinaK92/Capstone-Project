@@ -1,11 +1,11 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
+
 class Watchlist(db.Model):
-    if environment == "production":
-    op.execute(f"ALTER TABLE watchlists SET SCHEMA {SCHEMA};")
-    # __tablename__ = "watchlists"
-    # if environment == "production":
-    #     __table_args__ = {"schema": SCHEMA}
+    __tablename__ = add_prefix_for_prod(
+        "watchlists"
+    )  # Prefix table name for production schema
+    __table_args__ = {"schema": SCHEMA} if environment == "production" else None
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(
@@ -14,9 +14,19 @@ class Watchlist(db.Model):
     name = db.Column(db.String(100), nullable=False)
 
     # Relationships:
-    user = db.relationship('User', back_populates='watchlists')
-    watchlist_movies = db.relationship('WatchlistMovie', back_populates='watchlist', cascade='all, delete-orphan', overlaps="movies")
-    movies = db.relationship("Movie", secondary="watchlist_movies", back_populates="watchlists", overlaps="watchlist_movies")
+    user = db.relationship("User", back_populates="watchlists")
+    watchlist_movies = db.relationship(
+        "WatchlistMovie",
+        back_populates="watchlist",
+        cascade="all, delete-orphan",
+        overlaps="movies",
+    )
+    movies = db.relationship(
+        "Movie",
+        secondary="watchlist_movies",
+        back_populates="watchlists",
+        overlaps="watchlist_movies",
+    )
 
     def to_dict(self):
         return {

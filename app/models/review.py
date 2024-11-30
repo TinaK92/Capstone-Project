@@ -1,11 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Review(db.Model):
-    if environment == "production":
-    op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
-    # __tablename__ = "reviews"
-    # if environment == "production":
-    #     __table_args__ = {'schema': SCHEMA}
+    __tablename__ = add_prefix_for_prod("reviews")  # Prefix table name for production schema
+    __table_args__ = {'schema': SCHEMA} if environment == "production" else None
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)

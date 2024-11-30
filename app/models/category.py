@@ -1,12 +1,9 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA, add_prefix_for_prod, 
 
 class Category(db.Model):
 
-    if environment == "production":
-    op.execute(f"ALTER TABLE categories SET SCHEMA {SCHEMA};")
-    # __tablename__ = "categories"
-    # if environment == "production":
-    #     __table_args__ = {'schema': SCHEMA}
+    __tablename__ = add_prefix_for_prod("categories")  # Prefix table name for production schema
+    __table_args__ = {'schema': SCHEMA} if environment == "production" else None
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
