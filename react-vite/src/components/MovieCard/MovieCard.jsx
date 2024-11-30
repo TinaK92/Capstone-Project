@@ -44,13 +44,15 @@ const MovieCard = ({ movie }) => {
       <h3 className="movie-title">{movie.title}</h3>
       <p>Release Date: {movie.release_date}</p>
       <p>Rating: {movie.vote_average} / 10</p>
-      <button 
-        className="add-movie-btn" 
-        onClick={handleAddMovie}
-        disabled={exists}
-      >
-        {exists ? "Already Added" : "Add Movie"}
-      </button>
+      <div className="movie-btn-div">
+        <button 
+          className="add-movie-btn" 
+          onClick={handleAddMovie}
+          disabled={exists}
+        >
+          {exists ? "Already Added" : "Add Movie"}
+        </button>
+      </div>
     </div>
   );
 };

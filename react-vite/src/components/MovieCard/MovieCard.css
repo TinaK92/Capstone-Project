@@ -4,21 +4,42 @@
   width: 150px;
   display: flex;
   justify-self: center;
+  margin: 30px 30px;
+
 }
 /* Each individual movie card container */
 .movie-card {
   margin-left: 20px;
   margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #3a3a3c;
+  box-shadow: 4px 2px 10px grey;
+  border-radius: 8px;
+  height: 400px;
 }
 
 .movie-title {
   display: flex;
   justify-self: center;
+  justify-items: center;
+  color: #ebbb4a;
+  font-size: 25px;
 }
 
 .add-movie-btn {
   display: flex;
-  justify-self: center;
+  margin-bottom: 20px;
+  
 }
 
+.movie-btn-div {
+  display: flex;
+  justify-self: center;
+  
+}
+
+.movie-poster {
+  box-shadow: 4px 2px 10px #ebbb4a;
+}
 

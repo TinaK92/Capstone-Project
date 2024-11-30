@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { fetchAddMovieToWatchlist } from "../../redux/watchlist";
+import './HomeMovie.css'
 
 const HomeMovie = ({ movie }) => {
   const user = useSelector((state) => state.session.user);
@@ -43,7 +44,7 @@ const HomeMovie = ({ movie }) => {
         />
         <h3 className="movie-title">{movie.name}</h3>
       </div>
-      <div>
+      <div className="select-wl-btn">
         <select
           value={selectedWatchlist || ""}
           onChange={(e) => setSelectedWatchlist(e.target.value)}

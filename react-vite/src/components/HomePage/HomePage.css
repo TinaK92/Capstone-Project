@@ -4,6 +4,8 @@
     margin: 30px 30px;
 }
 
+
+
 /* Responsive Layout:  */
 @media (max-width: 1200px) {
     .all-movies-div{
@@ -22,3 +24,4 @@
         grid-template-columns: repeat(1, 1fr);
     }
 }
+
