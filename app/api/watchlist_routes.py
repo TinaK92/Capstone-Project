@@ -66,7 +66,7 @@ def get_movies_in_watchlist(watchlist_id):
 
 
 # Add a movie to a watchlist
-@watchlist_routes.route("/<int:watchlist_id>/movies", methods=["POST"])
+@watchlist_routes.route("/<int:watchlist_id>/add", methods=["POST"])
 @login_required
 def add_movie_to_watchlist(watchlist_id):
     data = request.get_json()

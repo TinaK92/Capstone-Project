@@ -106,27 +106,27 @@ export const fetchWatchlistDetails = (watchlistId) => async (dispatch) => {
   }
 };
 
-export const fetchAddMovieToWatchlist = (watchlistId, movieId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/watchlist/${watchlistId}/movies`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ movie_id: movieId }),
-    });
+export const fetchAddMovieToWatchlist =
+  (watchlistId, movieId) => async (dispatch) => {
+    try {
+      const response = await fetch(`/api/watchlist/${watchlistId}/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ movie_id: movieId }),
+      });
 
-    if (response.ok) {
-      const movie = await response.json();
-      dispatch(addMovieToWatchlist(movie));
-      return movie;
-    } else {
-      const error = await response.json();
-      return { error: error.error };
+      if (response.ok) {
+        const movie = await response.json();
+        dispatch(addMovieToWatchlist(movie));
+        return movie;
+      } else {
+        const error = await response.json();
+        return { error: error.error };
+      }
+    } catch (error) {
+      return { error: "Failed to add movie to watchlist" };
     }
-  } catch (error) {
-    return { error: "Failed to add movie to watchlist" };
-  }
-};
-
+  };
 
 export const fetchCreateNewWatchlist = (formData) => async (dispatch) => {
   try {
