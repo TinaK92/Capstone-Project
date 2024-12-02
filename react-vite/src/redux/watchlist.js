@@ -232,7 +232,7 @@ function watchlistReducer(state = initialState, action) {
       );
       return {
         ...state,
-        selectedMovies: updatedMovies,
+        selectedMovies: [...updatedMovies],
       };
     }
     case DELETE_WATCHLIST:

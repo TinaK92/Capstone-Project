@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from sqlalchemy.dialects.postgresql import insert
-
+from sqlalchemy import delete
 
 # from app.models.watchlist import Watchlist, db
 from app.models.watchlist_movie import watchlist_movies
@@ -142,16 +142,17 @@ def delete_movie_from_watchlist(watchlist_id, movie_id):
     if not watchlist:
         return {"error": "Watchlist not found or unauthorized"}, 404
 
-    # Validate that the movie exists in the watchlist
-    watchlist_movie = watchlist_movies.query.filter_by(
-        watchlist_id=watchlist_id, movie_id=movie_id
-    ).first()
-    if not watchlist_movie:
-        return {"error": "Movie not found in this watchlist"}, 404
-
     try:
-        # Delete the movie from the watchlist
-        db.session.delete(watchlist_movie)
+        # Validate that the movie exists in the watchlist and delete it
+        delete_statement = delete(watchlist_movies).where(
+            (watchlist_movies.c.watchlist_id == watchlist_id) &
+            (watchlist_movies.c.movie_id == movie_id)
+        )
+        result = db.session.execute(delete_statement)
+
+        if result.rowcount == 0:
+            return {"error": "Movie not found in this watchlist"}, 404
+
         db.session.commit()
         return {"message": "Movie successfully removed from watchlist"}, 200
     except Exception as e:
