@@ -28,6 +28,7 @@ class Movie(db.Model):
     watchlists = db.relationship(
         "Watchlist", secondary="watchlist_movies", back_populates="movies"
     )
+    watchlist_movies = db.relationship("WatchlistMovies", back_populates="movie")
 
     def to_dict(self):
         return {

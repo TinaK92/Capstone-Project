@@ -22,5 +22,5 @@ class WatchlistMovies(db.Model):
     )
 
     # Relationships
-    watchlist = db.relationship("Watchlist", back_populates="movies")
-    movie = db.relationship("Movie", back_populates="watchlist")
+    watchlist = db.relationship("Watchlist", back_populates="watchlist_movies")
+    movie = db.relationship("Movie", back_populates="watchlist_movies")
