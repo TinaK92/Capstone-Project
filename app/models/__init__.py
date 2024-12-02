@@ -8,13 +8,13 @@ from .category import Category
 from .movie_category import MovieCategory
 from .review import Review
 
-__all__ = [
-    "User",
-    "Movie",
-    "Category",
-    "MovieCategory",
-    "Review",
-    "Comment",
-    "Watchlist",
-    "WatchlistMovie",
-]
+# __all__ = [
+#     "User",
+#     "Movie",
+#     "Category",
+#     "MovieCategory",
+#     "Review",
+#     "Comment",
+#     "Watchlist",
+#     "WatchlistMovie",
+# ]
