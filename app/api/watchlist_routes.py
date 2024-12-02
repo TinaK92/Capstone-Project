@@ -163,16 +163,29 @@ def delete_movie_from_watchlist(watchlist_id, movie_id):
 # Delete a Watchlist
 @watchlist_routes.route("/<int:watchlist_id>/delete", methods=["DELETE"])
 @login_required
-def delete_watchlist(watchlist_id):  # Update the parameter name to match the route
-    watchlist = Watchlist.query.get(watchlist_id)
+def delete_watchlist(watchlist_id):
+    """
+    Delete a specific watchlist belonging to the current user.
+    """
+    try:
+        # Validate that the watchlist exists and belongs to the current user
+        watchlist = Watchlist.query.filter_by(id=watchlist_id, user_id=current_user.id).first()
+        
+        if not watchlist:
+            return {"error": "Watchlist not found or unauthorized"}, 404
 
-    if not watchlist:
-        return {"error": "Watchlist not found"}, 404
+        # Optionally: Clean up any relationships (if cascade delete is not set in your model)
+        db.session.execute(
+            watchlist_movies.delete().where(
+                watchlist_movies.c.watchlist_id == watchlist_id
+            )
+        )
 
-    if watchlist.user_id != current_user.id:
-        return {"error": "Unauthorized"}, 403
-
-    # Delete the watchlist
-    db.session.delete(watchlist)
-    db.session.commit()
-    return {"message": "Watchlist has been successfully deleted"}, 200
+        # Delete the watchlist
+        db.session.delete(watchlist)
+        db.session.commit()
+        
+        return {"message": "Watchlist has been successfully deleted"}, 200
+    except Exception as e:
+        db.session.rollback()
+        return {"error": f"An error occurred: {str(e)}"}, 500

@@ -174,23 +174,27 @@ export const fetchDeleteMovieFromWatchlist =
     }
   };
 
-export const fetchDeleteWatchlist = (watchlistId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/watchlist/${watchlistId}`, {
-      method: "DELETE",
-    });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(deleteWatchlistAction(watchlistId));
-      return data; // Return success message
-    } else {
-      const error = await response.json();
-      return { error: error.error };
+  export const fetchDeleteWatchlist = (watchlistId) => async (dispatch) => {
+    try {
+      const response = await fetch(`/api/watchlist/${watchlistId}/delete`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteWatchlistAction(watchlistId)); // Update Redux store
+        return data; // Return success message
+      } else {
+        // Parse and return error response from the server
+        const error = await response.json();
+        console.error("Error deleting watchlist:", error);
+        return { error: error.error || "Failed to delete watchlist" };
+      }
+    } catch (error) {
+      console.error("Unexpected error deleting watchlist:", error);
+      return { error: "An unexpected error occurred while deleting the watchlist" };
     }
-  } catch (error) {
-    return { error: "Failed to delete watchlist" };
-  }
-};
+  };
 
 // State
 const initialState = {
