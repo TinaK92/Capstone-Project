@@ -1,7 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
+
 class Movie(db.Model):
-    __tablename__ = 'movies'
+    __tablename__ = "movies"
     if environment == "production":
         __table_args__ = {"schema": SCHEMA}
 
@@ -19,12 +20,14 @@ class Movie(db.Model):
     )
 
     # Relationships
-    user = db.relationship('User', back_populates='movies')
-    watchlist_movies = db.relationship('WatchlistMovie', back_populates='movie', cascade='all, delete-orphan', overlaps="watchlists")
+    user = db.relationship("User", back_populates="movies")
+
     # movie_categories = db.relationship('MovieCategory', back_populates='movie', cascade='all, delete-orphan')
     # comments = db.relationship('Comment', back_populates='movie', cascade='all, delete-orphan')
     # reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
-    watchlists = db.relationship("Watchlist", secondary="watchlist_movies", back_populates="movies", overlaps="watchlist_movies")
+    watchlists = db.relationship(
+        "Watchlist", secondary="watchlist_movies", back_populates="movies"
+    )
 
     def to_dict(self):
         return {
