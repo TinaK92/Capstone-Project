@@ -11,13 +11,11 @@ class WatchlistMovies(db.Model):
     watchlist_id = db.Column(
         db.Integer,
         db.ForeignKey(add_prefix_for_prod("watchlists.id")),
-        nullable=False,
         primary_key=True,
     )
     movie_id = db.Column(
         db.Integer,
         db.ForeignKey(add_prefix_for_prod("movies.id")),
-        nullable=False,
         primary_key=True,
     )
 
