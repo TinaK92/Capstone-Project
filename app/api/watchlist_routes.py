@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
+from sqlalchemy.dialects.postgresql import insert
 
 
 # from app.models.watchlist import Watchlist, db

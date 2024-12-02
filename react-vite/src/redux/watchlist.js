@@ -114,7 +114,6 @@ export const fetchAddMovieToWatchlist =
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ movie_id: movieId }),
       });
-
       if (response.ok) {
         const movie = await response.json();
         dispatch(addMovieToWatchlist(movie));
