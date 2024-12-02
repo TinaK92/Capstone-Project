@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 
 # from app.models.watchlist import Watchlist, db
-from app.models.watchlist_movie import WatchlistMovies
+from app.models.watchlist_movie import watchlist_movies
 from dotenv import load_dotenv
 from app.forms.create_watchlist_form import CreateWatchlistForm
 from app.models import Watchlist, Movie, db
