@@ -153,7 +153,7 @@ export const fetchDeleteMovieFromWatchlist =
   (watchlistId, movieId) => async (dispatch) => {
     try {
       const response = await fetch(
-        `/api/watchlist/${watchlistId}/movies/${movieId}`,
+        `/api/watchlist/${watchlistId}/movies/${movieId}/delete`,
         {
           method: "DELETE",
         }

@@ -160,7 +160,7 @@ def delete_movie_from_watchlist(watchlist_id, movie_id):
 
 
 # Delete a Watchlist
-@watchlist_routes.route("/<int:watchlist_id>", methods=["DELETE"])
+@watchlist_routes.route("/<int:watchlist_id>/delete", methods=["DELETE"])
 @login_required
 def delete_watchlist(watchlist_id):  # Update the parameter name to match the route
     watchlist = Watchlist.query.get(watchlist_id)
