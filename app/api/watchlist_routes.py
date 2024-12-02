@@ -71,26 +71,37 @@ def get_movies_in_watchlist(watchlist_id):
 def add_movie_to_watchlist(watchlist_id):
     data = request.get_json()
     movie_id = data.get("movie_id")
-    watchlist = Watchlist.query.filter_by(
-        id=watchlist_id, user_id=current_user.id
-    ).first()
+
+    # Check if the watchlist exists and belongs to the current user
+    watchlist = Watchlist.query.filter_by(id=watchlist_id, user_id=current_user.id).first()
     if not watchlist:
         return {"error": "Watchlist not found"}, 404
 
+    # Check if the movie exists
     movie = Movie.query.get(movie_id)
     if not movie:
         return {"error": "Movie not found"}, 404
 
-    existing_entry = WatchlistMovie.query.filter_by(
-        watchlist_id=watchlist_id, movie_id=movie_id
-    ).first()
-    if existing_entry:
-        return {"error": "Move is already in the watchlist"}, 400
+    # Check if the movie is already in the watchlist
+    existing_entry = db.session.execute(
+        watchlist_movies.select().where(
+            (watchlist_movies.c.watchlist_id == watchlist_id) &
+            (watchlist_movies.c.movie_id == movie_id)
+        )
+    ).fetchone()
 
-    new_watchlist_movie = WatchlistMovie(watchlist_id=watchlist_id, movie_id=movie_id)
-    db.session.add(new_watchlist_movie)
+    if existing_entry:
+        return {"error": "Movie is already in the watchlist"}, 400
+
+    # Add the movie to the watchlist
+    insert_statement = insert(watchlist_movies).values(
+        watchlist_id=watchlist_id,
+        movie_id=movie_id
+    )
+    db.session.execute(insert_statement)
     db.session.commit()
-    return {"message": "Movie added to watchlist successfully"}, 200
+
+    return {"message": "Movie added to watchlist"}, 201
 
 
 # Create a WatchList
