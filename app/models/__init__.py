@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA
-from .watchlist_movie import WatchlistMovies
+from .watchlist_movie import watchlist_movies
 from .user import User
 from .movie import Movie
 from .watchlist import Watchlist
