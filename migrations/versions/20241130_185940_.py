@@ -74,7 +74,8 @@ def upgrade():
         "watchlists",
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
-        sa.Column("name", sa.String(length=100), nullable=False),
+        sa.Column("name", sa.String(length=100), nullable=False), 
+        sa.UniqueConstraint("user_id", "name", name="unique_watchlist_per_user"),
         sa.ForeignKeyConstraint(
             ["user_id"],
             ["users.id"],
