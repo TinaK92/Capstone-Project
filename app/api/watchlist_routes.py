@@ -129,7 +129,7 @@ def create_new_watchlist():
 
 
 # Remove a movie from a watchlist
-@watchlist_routes.route("/<int:watchlist_id>/movies/<int:movie_id>", methods=["DELETE"])
+@watchlist_routes.route("/<int:watchlist_id>/movies/<int:movie_id>/delete", methods=["DELETE"])
 @login_required
 def delete_movie_from_watchlist(watchlist_id, movie_id):
     """
@@ -143,7 +143,7 @@ def delete_movie_from_watchlist(watchlist_id, movie_id):
         return {"error": "Watchlist not found or unauthorized"}, 404
 
     # Validate that the movie exists in the watchlist
-    watchlist_movie = WatchlistMovie.query.filter_by(
+    watchlist_movie = watchlist_movies.query.filter_by(
         watchlist_id=watchlist_id, movie_id=movie_id
     ).first()
     if not watchlist_movie:
