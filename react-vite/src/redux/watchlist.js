@@ -90,22 +90,6 @@ export const fetchWatchlistMovies = (watchlistId) => async (dispatch) => {
   }
 };
 
-export const fetchWatchlistDetails = (watchlistId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/watchlist/${watchlistId}`);
-    if (response.ok) {
-      const watchlist = await response.json();
-      console.log("Fetched Watchlist Details:", watchlist); // Debug log
-      dispatch(getWatchlistDetails(watchlist));
-    } else {
-      const errorText = await response.text();
-      console.error("Error fetching watchlist details:", errorText);
-    }
-  } catch (error) {
-    console.error("Error fetching watchlist details:", error);
-  }
-};
-
 export const fetchAddMovieToWatchlist =
   (watchlistId, movieId) => async (dispatch) => {
     try {
@@ -126,6 +110,24 @@ export const fetchAddMovieToWatchlist =
       return { error: "Failed to add movie to watchlist" };
     }
   };
+
+export const fetchWatchlistDetails = (watchlistId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/watchlist/${watchlistId}`);
+    if (response.ok) {
+      const watchlist = await response.json();
+      console.log("Fetched Watchlist Details:", watchlist); // Debug log
+      dispatch(getWatchlistDetails(watchlist));
+    } else {
+      const errorText = await response.text();
+      console.error("Error fetching watchlist details:", errorText);
+    }
+  } catch (error) {
+    console.error("Error fetching watchlist details:", error);
+  }
+};
+
+
 
 export const fetchCreateNewWatchlist = (formData) => async (dispatch) => {
   try {
