@@ -20,7 +20,7 @@ class Watchlist(db.Model):
         secondary="watchlist_movies",
         back_populates="watchlists",
     )
-    watchlist_movies = db.relationship("WatchlistMovies", back_populates="watchlists")
+    # watchlist_movies = db.relationship("WatchlistMovies", back_populates="watchlists")
 
     def to_dict(self):
         return {

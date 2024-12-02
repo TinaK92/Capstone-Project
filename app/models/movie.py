@@ -25,7 +25,7 @@ class Movie(db.Model):
     # movie_categories = db.relationship('MovieCategory', back_populates='movie', cascade='all, delete-orphan')
     # comments = db.relationship('Comment', back_populates='movie', cascade='all, delete-orphan')
     # reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
-    watchlist_movies = db.relationship("WatchlistMovies", back_populates="movie")
+    # watchlist_movies = db.relationship("WatchlistMovies", back_populates="movie")
     watchlists = db.relationship(
         "Watchlist", secondary="watchlist_movies", back_populates="movies"
     )
