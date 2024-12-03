@@ -9,34 +9,53 @@ function SignupFormPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
+  const validateInputs = () => {
+    const newErrors = {};
+    if (!email.includes("@")) newErrors.email = "Email must be valid.";
+    if (username.trim().length < 3)
+      newErrors.username = "Username must be at least 3 characters.";
+    if (password.length < 6)
+      newErrors.password = "Password must be at least 6 characters.";
+    if (password !== confirmPassword)
+      newErrors.confirmPassword =
+        "Confirm Password field must match the Password field.";
+    return newErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      return setErrors({
-        confirmPassword:
-          "Confirm Password field must be the same as the Password field",
-      });
+    const newErrors = validateInputs();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
     }
 
-    const serverResponse = await dispatch(
-      thunkSignup({
-        email,
-        username,
-        password,
-      })
-    );
+    try {
+      const serverResponse = await dispatch(
+        thunkSignup({
+          email,
+          username,
+          firstName,
+          lastName,
+          password,
+        })
+      );
 
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      navigate("/");
+      if (serverResponse) {
+        setErrors(serverResponse);
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      setErrors({ server: "An unexpected error occurred. Please try again." });
     }
   };
 
@@ -45,6 +64,26 @@ function SignupFormPage() {
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
+      <label>
+          First Name
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.firstName && <p>{errors.firstName}</p>}
+        <label>
+          Last Name
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.lastName && <p>{errors.lastName}</p>}
         <label>
           Email
           <input

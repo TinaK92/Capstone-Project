@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchWatchlistMovies, fetchWatchlistDetails } from "../../redux/watchlist";
-
+import './WatchlistDetails.css'
 import WatchlistMovieCard from "../WatchlistMovieCard/WatchlistMovieCard";
 // import { fetchDeleteWatchlist } from "../../redux/watchlist";
 
@@ -41,8 +41,8 @@ const WatchlistDetails = () => {
 
   return (
     <div>
-      <h1>Watchlist Movies</h1>
-      <h2>{watchlist.name}</h2>
+      <h1 className="watchlist-title">Watchlist Movies</h1>
+      <h2 className="watchlist-title">{watchlist.name}</h2>
       {movies && movies.length > 0 ? (
         <div className="movie-list">
         {movies.map((movie) => (

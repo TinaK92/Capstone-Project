@@ -3,6 +3,7 @@ import { fetchDeleteMovieFromWatchlist } from "../../redux/watchlist";
 import { useNavigate } from "react-router-dom";
 // import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
+import './WatchlistMovieCard.css'
 
 
 
@@ -35,8 +36,8 @@ const WatchlistMovieCard = ({ movie, watchlistId }) => {
         className="movie-poster"
       />
       <h3 className="movie-title">{movie.name}</h3>
-      <p>Release Date: {movie.release_year} </p>
-      <p>Description: {movie.description} </p>
+      <p className="date">Release Date: {movie.release_year} </p>
+      <p className="description">Description: {movie.description} </p>
       <button
         className="delete-movie-btn"
         onClick={handleRemoveMovie}

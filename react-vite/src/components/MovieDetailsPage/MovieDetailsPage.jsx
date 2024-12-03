@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchDeleteMovie, fetchGetMovie } from "../../redux/movie";
 import DeleteMovieModal from "../DeleteMovieModal/DeleteMovieModal";
 import { useModal } from "../../context/Modal";
+import './MovieDetailsPage.css'
 
 export const MovieDetailsPage = () => {
     const { setModalContent, closeModal } = useModal();

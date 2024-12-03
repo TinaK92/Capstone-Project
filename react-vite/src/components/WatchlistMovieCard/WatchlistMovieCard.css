@@ -1,23 +1,15 @@
-
 .movie-card {
-    height: auto;
-    width: auto;
-}
-
-.select-wl-btn {
+  height: auto;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   display: flex;
-  justify-self: center;
-  border-radius: 14px;
+  flex-direction: column;
 }
 
-.movie-title {
-  display: flex;
-  justify-self: center;
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.add-to-btn {
+.delete-movie-btn {
   margin-top: 15px;
   background-color: black;
   font-size: 1rem;
@@ -32,7 +24,17 @@
   align-self: center;
 }
 
-.add-to-btn:hover {
+.delete-movie-btn:hover {
     color: white;
     border: white 0.125em solid;
+}
+
+.date,
+.description {
+    color: white;
+}
+
+.movie-title {
+    display: flex;
+    align-self: center;
 }

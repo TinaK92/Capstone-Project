@@ -59,7 +59,7 @@ const HomeMovie = ({ movie }) => {
               </option>
             ))}
         </select>
-        <button onClick={handleAddToWatchlist}>Add to Watchlist</button>
+        <button className="add-to-btn" onClick={handleAddToWatchlist}>Add to Watchlist</button>
         {message && <p>{message}</p>}
       </div>
     </div>

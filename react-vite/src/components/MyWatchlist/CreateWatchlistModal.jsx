@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 // import { fetchCreateNewWatchlist } from "../../redux/watchlist";
 import CreateNewWatchListForm from "./CreateNewWatchlistForm";
+import './CreateWatchlist.css';
 
 
 function CreateWatchlistModal() {
@@ -16,7 +17,7 @@ function CreateWatchlistModal() {
     
     return (
         <div>
-        <button onClick={() => openModal(<CreateNewWatchListForm onSuccess={refreshWatchlists} />)}>
+        <button className="create-wl-btn" onClick={() => openModal(<CreateNewWatchListForm onSuccess={refreshWatchlists} />)}>
             Create New Watchlist
         </button>
     </div>
