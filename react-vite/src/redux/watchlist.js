@@ -142,10 +142,10 @@ export const fetchCreateNewWatchlist = (formData) => async (dispatch) => {
       return newWatchlist;
     } else {
       const errorText = await response.json();
-      return { error: errorText };
+      return { error: errorText || "Failed to create watchlist"};
     }
   } catch (error) {
-    return { errors: "An error has occured" };
+    return { errors: "An unexpected error occurred while creating the watchlist" };
   }
 };
 
@@ -183,6 +183,7 @@ export const fetchDeleteMovieFromWatchlist =
       if (response.ok) {
         const data = await response.json();
         dispatch(deleteWatchlistAction(watchlistId)); // Update Redux store
+        dispatch(fetchGetMyWatchlists());
         return data; // Return success message
       } else {
         // Parse and return error response from the server
@@ -209,36 +210,33 @@ function watchlistReducer(state = initialState, action) {
   switch (action.type) {
     case GET_MY_WATCHLISTS:
       return { ...state, myWatchlists: action.payload };
+
     case GET_WATCHLIST_MOVIES:
-      console.log(
-        "Reducer: Updating selectedMovies with payload:",
-        action.payload
-      ); // Debugging
-      return {
-        ...state,
-        selectedMovies: action.payload.length
-          ? action.payload
-          : state.selectedMovies,
-      };
+      return { ...state, selectedMovies: action.payload };
+
     case GET_WATCHLIST_DETAILS:
-      console.log("Updating selectedWatchlist:", action.payload); // Debug log
       return { ...state, selectedWatchlist: action.payload };
+
     case ADD_MOVIE_TO_WATCHLIST:
-      return {
-        ...state,
-        selectedMovies: [...state.selectedMovies, action.payload],
+      return { 
+        ...state, 
+        selectedMovies: [...state.selectedMovies, action.payload] 
       };
+
     case CREATE_NEW_WATCHLIST:
-      return { ...state, watchlist: action.payload };
-    case DELETE_MOVIE_FROM_WATCHLIST: {
-      const updatedMovies = state.selectedMovies.filter(
-        (movie) => movie.id !== action.payload.movieId
-      );
+      return { 
+        ...state, 
+        myWatchlists: [...state.myWatchlists, action.payload] 
+      };
+
+    case DELETE_MOVIE_FROM_WATCHLIST:
       return {
         ...state,
-        selectedMovies: [...updatedMovies],
+        selectedMovies: state.selectedMovies.filter(
+          (movie) => movie.id !== action.payload.movieId
+        ),
       };
-    }
+
     case DELETE_WATCHLIST:
       return {
         ...state,
@@ -246,6 +244,7 @@ function watchlistReducer(state = initialState, action) {
           (watchlist) => watchlist.id !== action.payload
         ),
       };
+
     default:
       return state;
   }
