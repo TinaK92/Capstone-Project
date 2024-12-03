@@ -8,6 +8,7 @@ import { MovieDetailsPage } from "../components/MovieDetailsPage/MovieDetailsPag
 import EditMoviePage from "../components/EditMoviePage/EditMoviePage";
 import { CreateNewWatchListForm } from "../components/MyWatchlist/CreateNewWatchlistForm";
 import WatchlistDetails from "../components/WatchlistDetails/WatchlistDetails";
+import MyMovies from "../components/MyMovies/MyMovies";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/watchlists/:id",
         element: <WatchlistDetails />
+      }, 
+      {
+        path: '/mymovies',
+        element: <MyMovies />
       }
     ],
   },
