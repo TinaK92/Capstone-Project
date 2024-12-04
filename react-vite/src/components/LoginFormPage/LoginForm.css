@@ -14,3 +14,8 @@ label {
     flex-direction: column;
     justify-self: center;
 }
+
+.error-message {
+    color: red;
+    text-align: center;
+}
