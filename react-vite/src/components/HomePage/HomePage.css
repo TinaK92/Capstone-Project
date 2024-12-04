@@ -8,6 +8,10 @@
     color: white;
 }
 
+.error-message {
+    color: red;
+}
+
 /* Responsive Layout:  */
 @media (max-width: 1200px) {
     .all-movies-div{
