@@ -24,7 +24,7 @@ const MyMovies = () => {
 
   return (
     <div className="my-movies-container">
-      <h1>My Movies</h1>
+      <h1 className="my-movies-title">My Movies</h1>
       {myMovies.length > 0 ? (
         <div className="movies-list">
           {myMovies.map((movie) => (
@@ -45,7 +45,7 @@ const MyMovies = () => {
           ))}
         </div>
       ) : (
-        <p>You haven't added any movies yet.</p>
+        <p className="message-text">You haven't added any movies yet.</p>
       )}
     </div>
   );

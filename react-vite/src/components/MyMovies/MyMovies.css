@@ -4,6 +4,11 @@
     margin: 30px 30px;
 }
 
+.message-text,
+.my-movies-title {
+    color: white;
+}
+
 
 
 /* Responsive Layout:  */
