@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true);
   const [exists, setExists] = useState(false);
 
   const movieData = {
@@ -18,6 +18,7 @@ const MovieCard = ({ movie }) => {
 
   useEffect(() => {
     const checkMovieExists = async () => {
+      setLoading(true);
       const response = await fetch(
         `/api/movies/exists?name=${encodeURIComponent(
           movieData.name
@@ -30,6 +31,7 @@ const MovieCard = ({ movie }) => {
     checkMovieExists();
   }, [movieData.name, movieData.release_year]);
   const handleAddMovie = () => {
+    setExists(true);
     dispatch(fetchAddMovie(movieData));
   };
 
