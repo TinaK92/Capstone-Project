@@ -1,21 +1,20 @@
 import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 
-function LoginFormPage() {
-  const navigate = useNavigate();
+function LoginFormModal() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  const [loading, setLoading] = useState(false); // Loading state for buttons
+  const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const serverResponse = await dispatch(
       thunkLogin({
@@ -24,43 +23,77 @@ function LoginFormPage() {
       })
     );
 
+    setLoading(false);
+
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
-      navigate("/");
+      closeModal();
     }
   };
 
+  const handleLoginDemo = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    await dispatch(
+      thunkLogin({
+        email: "demo@aa.io",
+        password: "password",
+      })
+    );
+
+    setLoading(false);
+    closeModal();
+  };
+
   return (
-    <>
-      <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
+    <div className="login-modal">
+      <h1 className="title">Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
+        <div className="input-group">
+          <label htmlFor="email">Email</label>
           <input
+            id="email"
+            className="email-input"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={loading}
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
+          {errors.email && <p className="error-message">{errors.email}</p>}
+        </div>
+        <div className="input-group">
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
+            className="password-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={loading}
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+          {errors.password && (
+            <p className="error-message">{errors.password}</p>
+          )}
+        </div>
+        <div className="button-group">
+          <button className="login-btn" type="submit" disabled={loading}>
+            {loading ? "Logging In..." : "Log In"}
+          </button>
+          <button
+            className="login-btn demo-login-btn"
+            onClick={handleLoginDemo}
+            disabled={loading}
+          >
+            {loading ? "Logging In..." : "Login as Demo User"}
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 
-export default LoginFormPage;
+export default LoginFormModal;
