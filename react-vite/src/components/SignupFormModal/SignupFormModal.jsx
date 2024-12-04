@@ -17,6 +17,8 @@ function SignupFormModal() {
 
   const validateInputs = () => {
     const newErrors = {};
+    if (firstName < 2) newErrors.firstName = "First name must have 2-15 characters";
+    if (lastName < 2) newErrors.lastName = "Last name must have 2-15 characters"
     if (!email.includes("@")) newErrors.email = "Please enter a valid email.";
     if (username.trim().length < 3)
       newErrors.username = "Username must be at least 3 characters.";
