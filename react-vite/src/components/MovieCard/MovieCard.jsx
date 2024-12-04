@@ -42,8 +42,8 @@ const MovieCard = ({ movie }) => {
         className="movie-poster"
       />
       <h3 className="movie-title">{movie.title}</h3>
-      <p>Release Date: {movie.release_date}</p>
-      <p>Rating: {movie.vote_average} / 10</p>
+      <p className="movie-info">Release Date: {movie.release_date}</p>
+      <p className="movie-info">Rating: {movie.vote_average} / 10</p>
       <div className="movie-btn-div">
         <button 
           className="add-movie-btn" 

@@ -6,7 +6,7 @@
 
 .select-wl-btn {
   display: flex;
-  justify-self: center;
+  align-items: center;
   border-radius: 14px;
 }
 
@@ -18,21 +18,29 @@
 }
 
 .add-to-btn {
-  margin-top: 15px;
-  background-color: black;
-  font-size: 1rem;
-  display: inline-block;
-  cursor: pointer;
+  border: 1px solid #EA047E;
+  border-radius: 14px;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.45em .85em;
+  background-color: #000;
   text-decoration: none;
-  color: #ebbb4a;
-  border: #ebbb4a 0.125em solid;
-  padding: 0.25em 1em;
-  border-radius: 0.25em;
+  box-shadow: 0px 2px 24px 2px rgba(3,140,220,.1);
+  transition: box-shadow 0.3s;
+  color: #fff;
   margin-left: 15px;
-  align-self: center;
+  margin-right: 15px;
 }
 
 .add-to-btn:hover {
-    color: white;
-    border: white 0.125em solid;
+  box-shadow: 0px 2px 24px 2px #EA047E;
+  color: #EA047E;
+}
+
+
+
+.select-watchlist {
+  border-radius: 8px;
+  height: 35px;
 }

@@ -46,6 +46,7 @@ const HomeMovie = ({ movie }) => {
       </div>
       <div className="select-wl-btn">
         <select
+          className="select-watchlist"
           value={selectedWatchlist || ""}
           onChange={(e) => setSelectedWatchlist(e.target.value)}
         >

@@ -32,42 +32,52 @@ function LoginFormModal() {
     e.preventDefault();
     return dispatch(
       thunkLogin({
-        email: 'demo@aa.io',
-        password: 'password'
+        email: "demo@aa.io",
+        password: "password",
       })
     ).then(closeModal);
-  }
+  };
 
   return (
-    <>
-      <h1>Log In</h1>
+    <div className="login-mod">
+      <h1 className="title">Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
+        <div>
+          <label>
+            Email 
+            <input
+              className="email-input"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+        </div>
         {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+        <div>
+          <label>
+            Password 
+            <input
+              className="password-input"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </div>
         {errors.password && <p>{errors.password}</p>}
-        <button className="login-btn" type="submit">Log In</button>
-        <button className="login-btn" onClick={handleLoginDemo}>
-          Login as Demo User
-        </button>
+        <div className="button-div">
+          <button className="login-btn" type="submit">
+            Log In
+          </button>
+          <button className="login-btn" onClick={handleLoginDemo}>
+            Login as Demo User
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

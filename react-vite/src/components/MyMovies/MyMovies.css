@@ -1,0 +1,26 @@
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 30px 30px;
+}
+
+
+
+/* Responsive Layout:  */
+@media (max-width: 1200px) {
+    .movies-list{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .movies-list{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .movies-list{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

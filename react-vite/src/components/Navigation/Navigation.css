@@ -4,42 +4,53 @@
   justify-content: space-between;
   align-items: center; /* Align items vertically in the center */
   padding: 10px 20px;
-  background-color: #3a3a3c;
+  font-family: "Cantata One", serif;
 }
 
-.logo {
-  font-size: 65px;
-  text-decoration: none;
-  color: white;
-  align-self: center;
-}
 
 .search-form {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 10px; /* Add spacing between input and button */
 }
 
 .search-input {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  font-family: "Cantata One", serif;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 16px;
   padding: 5px 10px; /* Add padding for better usability */
 }
 
 .search-button {
-  background-color: black;
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+  border-radius: 8px;
   cursor: pointer;
-  color: #ebbb4a;
-  border: #ebbb4a 2px solid;
-  padding: 5px 15px;
-  border-radius: 0.25em;
-  transition: all 0.3s ease;
+  border: 1px solid #EA047E;
+  border-radius: 14px;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.45em .85em;
+  background-color: #000;
+  text-decoration: none;
+  box-shadow: 0px 2px 24px 2px rgba(3,140,220,.1);
+  transition: box-shadow 0.3s;
+  color: #fff;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-family: "Cantata One", serif;
 }
 
 .search-button:hover {
-  color: white;
-  border: white 2px solid;
+  box-shadow: 0px 2px 24px 2px #EA047E;
+  color: #EA047E;
 }
 
 .profile-div {
@@ -49,19 +60,28 @@
 }
 
 .profile-btn {
-  font-size: 24px;
-  background-color: black;
-  color: #ebbb4a;
-  border: #ebbb4a 2px solid;
-  padding: 5px 15px;
-  border-radius: 1em;
+  display: flex;
+  align-self: center;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border: 1px solid #EA047E;
+  border-radius: 2rem;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.45em .85em;
+  background-color: #000;
+  text-decoration: none;
+  box-shadow: 0px 2px 24px 2px rgba(3,140,220,.1);
+  transition: box-shadow 0.3s;
+  color: #fff;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .profile-btn:hover {
-  color: white;
-  border: white 2px solid;
+  box-shadow: 0px 2px 24px 2px #EA047E;
+  color: #EA047E;
 }
 
 .my-movies,
@@ -75,7 +95,7 @@
 
 .my-movies:hover,
 .my-watchlist:hover {
-  color: #ebbb4a;
+  color: #EA047E;
   text-decoration: underline;
 }
 
@@ -93,12 +113,12 @@
   top: 50px; /* Adjust based on the profile button's height */
   right: 30px; /* Align dropdown with profile button */
   background-color: #3a3a3c;
-  border: 1px solid #ebbb4a;
+  border: 1px solid #EA047E;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  width: auto; 
+  width: auto;
   justify-self: center;
 }
 
@@ -118,22 +138,44 @@
   color: white;
   font-size: 22px;
   cursor: pointer;
-
 }
 
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
-  color: #ebbb4a;
+  box-shadow: 0px 2px 24px 2px #EA047E;
+  color: #EA047E;
   text-decoration: underline;
 }
 
 .log-out {
-  background-color: black;
-  font-size: 1rem;
+  display: flex;
+  align-self: center;
+  margin-bottom: 20px;
+  border-radius: 8px;
   cursor: pointer;
-  color: #ebbb4a;
-  border: #ebbb4a 2px solid;
-  padding: 5px 15px;
-  border-radius: 0.25em;
-  transition: all 0.3s ease;
+  border: 1px solid #EA047E;
+  border-radius: 2rem;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.45em .85em;
+  background-color: #000;
+  text-decoration: none;
+  box-shadow: 0px 2px 24px 2px rgba(3,140,220,.1);
+  transition: box-shadow 0.3s;
+  color: #fff;
+  margin-left: 15px;
+  margin-right: 15px;
 }
+
+
+.logo {
+  font-size: 45px;
+  text-decoration: none;
+  color: #ffffff;
+  background: #000000;
+  align-self: center;
+  text-transform: uppercase;
+}
+
+

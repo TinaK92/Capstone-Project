@@ -1,0 +1,69 @@
+.login-mod {
+  border: 1px solid #ea047e;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.45em 0.85em;
+  background-color: #000;
+  text-decoration: none;
+  box-shadow: 0px 2px 24px 2px rgba(3, 140, 220, 0.1);
+  transition: box-shadow 0.3s;
+  color: #fff;
+  font-family: "Cantata One", serif;
+}
+
+.title {
+  justify-self: center;
+  text-decoration: underline;
+}
+
+.button-div {
+  justify-self: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.login-btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #ea047e;
+  border-radius: 14px;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.45em 0.85em;
+  background-color: #000;
+  text-decoration: none;
+  box-shadow: 0px 2px 24px 2px rgba(3, 140, 220, 0.1);
+  transition: box-shadow 0.3s;
+  color: #fff;
+  font-family: "Cantata One", serif;
+}
+
+.login-btn:hover {
+  box-shadow: 0px 2px 24px 2px #ea047e;
+  color: #ea047e;
+}
+
+.email-input,
+.password-input {
+  margin-left: 15px;
+  display: flex;
+  align-self: center;
+  margin-right: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+}

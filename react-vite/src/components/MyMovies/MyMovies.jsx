@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserMovies, fetchDeleteMovie } from "../../redux/movie";
+import './MyMovies.css'
 
 const MyMovies = () => {
   const dispatch = useDispatch();
@@ -34,8 +35,6 @@ const MyMovies = () => {
                 className="movie-poster"
               />
               <h3 className="movie-title">{movie.name}</h3>
-              <p className="date">Release Year: {movie.release_year}</p>
-              <p className="description">Description: {movie.description}</p>
               <button
                 className="delete-movie-btn"
                 onClick={() => handleRemoveMovie(movie.id)}
