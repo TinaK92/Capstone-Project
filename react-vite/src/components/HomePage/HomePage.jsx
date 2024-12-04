@@ -17,7 +17,7 @@ export const HomePage = () => {
     }, [dispatch]);
 
     if (!movies || movies.length === 0) {
-        return <p>No movies found. Please add some movies!</p>
+        return <p className="message">No movies found. Please add some movies!</p>
     }
 
     return (

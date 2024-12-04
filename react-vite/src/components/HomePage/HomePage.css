@@ -4,7 +4,9 @@
     margin: 30px 30px;
 }
 
-
+.message {
+    color: white;
+}
 
 /* Responsive Layout:  */
 @media (max-width: 1200px) {
