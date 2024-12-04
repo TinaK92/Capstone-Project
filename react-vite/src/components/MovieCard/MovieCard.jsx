@@ -31,7 +31,6 @@ const MovieCard = ({ movie }) => {
   }, [movieData.name, movieData.release_year]);
   const handleAddMovie = () => {
     dispatch(fetchAddMovie(movieData));
-    navigate('/');
   };
 
   return (
