@@ -2,3 +2,15 @@
     color: white;
     text-align: center;
 }
+
+label {
+    text-align: center;
+    color: white;
+}
+
+.email-input,
+.password-input {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}
