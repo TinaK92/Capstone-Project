@@ -2,11 +2,10 @@ import { useDispatch } from "react-redux";
 import { fetchAddMovie } from "../../redux/movie";
 import "./MovieCard.css";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 const MovieCard = ({ movie }) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
   const [exists, setExists] = useState(false);
 
   const movieData = {
@@ -18,7 +17,6 @@ const MovieCard = ({ movie }) => {
 
   useEffect(() => {
     const checkMovieExists = async () => {
-      setLoading(true);
       const response = await fetch(
         `/api/movies/exists?name=${encodeURIComponent(
           movieData.name

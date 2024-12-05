@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserMovies, fetchDeleteMovie } from "../../redux/movie";
 import './MyMovies.css'
@@ -45,7 +45,7 @@ const MyMovies = () => {
           ))}
         </div>
       ) : (
-        <p className="message-text">You haven't added any movies yet.</p>
+        <p className="message-text">You haven&apos;t added any movies yet.</p>
       )}
     </div>
   );

@@ -48,7 +48,7 @@ function SignupFormModal() {
       return;
     }
     try {
-      const serverResponse = await dispatch(
+      await dispatch(
         thunkSignup({
           first_name: firstName,
           last_name: lastName,
@@ -60,12 +60,8 @@ function SignupFormModal() {
       navigate("/");
       closeModal();
     } catch (e) {
-      console.log("E=========", e)
+      setServerErrors(e);
     }
-    if (serverResponse.errors) {
-      console.log("THIS IS THE SERVER RESONSE ERROR", serverResponse);
-      setServerErrors(serverResponse.errors);
-    } 
   };
 
   return (

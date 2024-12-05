@@ -2,9 +2,9 @@
 // import React from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-// import { fetchCreateNewWatchlist } from "../../redux/watchlist";
 import CreateNewWatchListForm from "./CreateNewWatchlistForm";
 import './CreateWatchlist.css';
+import { fetchGetMyWatchlists } from "../../redux/watchlist";
 
 
 function CreateWatchlistModal() {

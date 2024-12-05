@@ -1,15 +1,11 @@
 import { useDispatch } from "react-redux";
 import { fetchDeleteMovieFromWatchlist } from "../../redux/watchlist";
-import { useNavigate } from "react-router-dom";
-// import { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
 import './WatchlistMovieCard.css'
 
 
 
 const WatchlistMovieCard = ({ movie, watchlistId }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
 
   const handleRemoveMovie = async () => {

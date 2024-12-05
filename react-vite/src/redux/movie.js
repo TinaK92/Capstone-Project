@@ -160,8 +160,6 @@ function movieReducer(state = initialState, action) {
       return { ...state, allMovies: action.payload };
     case GET_A_MOVIE:
       return { ...state, selectedMovie: action.payload };
-    case GET_ALL_MOVIES:
-      return { ...state, allMovies: action.payload };
     case ADD_NEW_MOVIE:
       return { ...state, allMovies: [...state.allMovies, action.payload] };
     case UPDATE_MOVIE:
