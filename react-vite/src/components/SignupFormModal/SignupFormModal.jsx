@@ -15,7 +15,12 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [serverErrors, setServerErrors] = useState({
+    username: [],
+    email: [],
+  })
   const { closeModal } = useModal();
+  console.log("THIS IS SERVER ERRORS", serverErrors)
 
   const validateInputs = () => {
     const newErrors = {};
@@ -51,8 +56,9 @@ function SignupFormModal() {
       })
     );
 
-    if (serverResponse) {
-      setErrors(serverResponse);
+    if (serverResponse.errors) {
+      console.log("THIS IS THE SERVER RESONSE ERROR", serverResponse)
+        setServerErrors(serverResponse.errors);
     } else {
       closeModal();
       navigate('/')
@@ -62,7 +68,8 @@ function SignupFormModal() {
   return (
     <div className="sign-up-div">
       <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {serverErrors.username && <p>{serverErrors.username[0]}</p>}
+      {serverErrors.email && <p>{serverErrors.email[1]}</p>}
       <form onSubmit={handleSubmit}>
       <label>
           First Name

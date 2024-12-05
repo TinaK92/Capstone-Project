@@ -1,5 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tangerine:wght@400;700&display=swap");
 
-body {
-    background-color: black;
+:root {
+  /* Font Families */
+  --ff-header: "Tangerine", cursive;
+  --ff-primary: "Roboto", sans-serif;
+
+  /* colors */
+  --red-clr: #99251d;
+  --gold-clr: #ebbb4a;
+  --black-clr: #07070700;
+  --grey-clr: #d1d2d4;
+
+  /* animation */
+  --animate: all .3s ease-in-out;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+label {
+  font-family: var(--ff-header);
+}
+
+p,
+a,
+input {
+  font-family: var(--ff-primary);
+}
+
+h1 {
+  font-size: 68px;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 14px;
+}
+
+a,
+input,
+label {
+  font-size: 16px;
+}

@@ -1,100 +1,51 @@
 .create-wl {
-  justify-self: center;
-  font-size: 45px;
-  color: white;
-  font-weight: bolder;
-  font-family: "Cantata One", serif;
   
 }
 
 .choose-name {
-  color: white;
-  font-weight: bold;
-  font-family: "Cantata One", serif;
   
 }
 
 .create-wl-form {
-  justify-self: center;
-  font-size: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  font-family: "Cantata One", serif;
+
 }
 
 .create-watchlist-div {
-  margin-top: 30px;
-  margin-bottom: 30px;
+
 }
 
 .input-box {
-  margin-left: 15px;
-  font-size: 18px;
-  font-family: "Cantata One", serif;
-  border-radius: 14px;
-  padding-left: 10px;
+
 }
 
 .create-watchlist-btn {
-  font-family: "Cantata One", serif;
-  margin-left: 20px;
+
 }
 
 .no-watchlist-message {
-  font-size: 25px;
-  justify-self: center;
+
 }
 
-/* .list-wl {
-    background-color: #b7b7b6;
-} */
+
 
 .watchlist-div {
-  justify-self: center;
-  margin-top: 100px;
-  max-width: 65%;
+
 }
 
 .watchlist-title {
-  font-size: 35px;
-  justify-self: flex-start;
-  font-family: "Cantata One", serif;
-  color: white;
-  font-weight: bold;
+
 }
 
 .watchlist-link {
-  text-decoration: none;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  /* text-shadow: 0 0 3px #fff, 0 0 5px #fff, 0 0 8px #b7b7b6, 0 0 10px #b7b7b6,
-    0 0 15px #b7b7b6; */
+
 }
 
 .create-watchlist-btn,
 .delete-btn {
-  border: 1px solid #EA047E;
-  border-radius: 14px;
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 0.45em .85em;
-  background-color: #000;
-  text-decoration: none;
-  box-shadow: 0px 2px 24px 2px rgba(3,140,220,.1);
-  transition: box-shadow 0.3s;
-  color: #fff;
-  margin-left: 15px;
-  margin-right: 15px;
-  font-family: "Cantata One", serif;
+
 }
 
 .create-watchlist-btn:hover,
 .delete-btn:hover {
-  box-shadow: 0px 2px 24px 2px #EA047E;
-  color: #EA047E;
+
 }

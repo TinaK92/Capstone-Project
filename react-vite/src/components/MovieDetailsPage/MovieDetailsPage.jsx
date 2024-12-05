@@ -1,57 +1,61 @@
 import { useEffect } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchDeleteMovie, fetchGetMovie } from "../../redux/movie";
 import DeleteMovieModal from "../DeleteMovieModal/DeleteMovieModal";
 import { useModal } from "../../context/Modal";
-import './MovieDetailsPage.css'
+import "./MovieDetailsPage.css";
 
 export const MovieDetailsPage = () => {
-    const { setModalContent, closeModal } = useModal();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { id } = useParams();
-    // const user = useSelector((state) => state.session.user);
-    const movie = useSelector((state) => state.movies.selectedMovie);
+  const { setModalContent, closeModal } = useModal();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const user = useSelector((state) => state.session.user);
+  const movie = useSelector((state) => state.movies.selectedMovie);
 
-    useEffect(() => {
-        dispatch(fetchGetMovie(id));
-    }, [dispatch, id])
+  useEffect(() => {
+    dispatch(fetchGetMovie(id));
+  }, [dispatch, id]);
 
-    if (!movie) {
-        return <p>Movie not found!</p>
-    }
+  if (!movie) {
+    return <p>Movie not found!</p>;
+  }
 
-    const handleEdit = (id) => {
-        navigate(`/movies/${id}/edit`)
-    }
+  const isUserOwner = user.id === movie.user_id;
 
-    const handleDelete = (id) => {
-        setModalContent(
-            <DeleteMovieModal
-                onConfirm={() => {
-                    dispatch(fetchDeleteMovie(id)).then(() => {
-                        closeModal();
-                        navigate('/');
-                    })
-                }}
-                onCancel={closeModal}
-            />
-        )
-    }
+  const handleEdit = (id) => {
+    navigate(`/movies/${id}/edit`);
+  };
 
-    return (
-        <div className="movie-details-div">
-            <img
-                src={`${movie.image_url}`}
-                alt={`${movie.title} Poster`}
-                className="movie-poster"
-            />
-            <h3 className="movie-title">{movie.name}</h3>
-            <p>Release Date: {movie.release_year}</p>
-            <p>Description: {movie.description} </p>
-            <div>
-                <button 
+  const handleDelete = (id) => {
+    setModalContent(
+      <DeleteMovieModal
+        onConfirm={() => {
+          dispatch(fetchDeleteMovie(id)).then(() => {
+            closeModal();
+            navigate("/");
+          });
+        }}
+        onCancel={closeModal}
+      />
+    );
+  };
+
+  return (
+    <div className="movie-details-div">
+      <img
+        src={`${movie.image_url}`}
+        alt={`${movie.title} Poster`}
+        className="movie-poster"
+      />
+      <h3 className="movie-title">{movie.name}</h3>
+      <p>Release Date: {movie.release_year}</p>
+      <p>Description: {movie.description} </p>
+      <div>
+        {isUserOwner && (
+          <div className="movie-actions">
+            <button 
                     className="edit-btn"
                     onClick={() => handleEdit(movie.id)}
                 >
@@ -66,7 +70,9 @@ export const MovieDetailsPage = () => {
                 >
                     Delete
                 </button>
-            </div>
-        </div>
-    )
-}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

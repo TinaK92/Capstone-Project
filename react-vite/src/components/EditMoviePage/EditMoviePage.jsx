@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUpdateMovie } from "../../redux/movie";
+import './EditMoviePage.css'
 
 const EditMoviePage = () => {
     const dispatch = useDispatch();
@@ -49,18 +50,19 @@ const EditMoviePage = () => {
 
     return (
         <div>
-            <h1>Edit Movie</h1>
+            <h1 className="edit-title">Edit Movie</h1>
             <img
                 src={`${movie.image_url}`}
                 alt={`${movie.name} Poster`}
                 className="movie-poster"
             />
             <h3 className="movie-title">{movie.name}</h3>
-            <p>Release Date: {movie.release_year}</p>
+            <p className="edit-text">Can you write it better?</p>
             <form onSubmit={handleSubmit}>
                 <label>
                     Description:
                     <textarea
+                    className="text-box"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         rows="5"
@@ -69,7 +71,7 @@ const EditMoviePage = () => {
                 </label>
                 {errors.description && <p className="error">{errors.description}</p>}
                 {errors.server && <p className="error">{errors.server}</p>}
-                <button type="submit">Save Changes</button>
+                <button className="submit-update" type="submit">Save Changes</button>
             </form>
         </div>
     );
