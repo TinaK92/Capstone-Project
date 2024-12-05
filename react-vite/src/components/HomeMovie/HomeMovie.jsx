@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { fetchAddMovieToWatchlist } from "../../redux/watchlist";
-import './HomeMovie.css'
+import "./HomeMovie.css";
 
 const HomeMovie = ({ movie }) => {
   const user = useSelector((state) => state.session.user);
@@ -26,7 +26,9 @@ const HomeMovie = ({ movie }) => {
       return;
     }
 
-    const response = await dispatch(fetchAddMovieToWatchlist(selectedWatchlist, movie.id));
+    const response = await dispatch(
+      fetchAddMovieToWatchlist(selectedWatchlist, movie.id)
+    );
     if (response.error) {
       setMessage(response.error);
     } else {
@@ -35,20 +37,21 @@ const HomeMovie = ({ movie }) => {
   };
 
   return (
-    <div className="movie-card">
-      <div onClick={() => movieNavigator(movie.id)}>
-        <img
-          src={`${movie.image_url}`}
-          alt={`${movie.title} Poster`}
-          className="movie-poster"
-        />
-        <h3 className="movie-title">{movie.name}</h3>
-      </div>
+    <div className="movie-card" onClick={() => movieNavigator(movie.id)}>
+      <img
+        src={`${movie.image_url}`}
+        alt={`${movie.title} Poster`}
+        className="movie-poster"
+      />
+      <h3 className="movie-title">{movie.name}</h3>
       <div className="select-wl-btn">
         <select
           className="select-watchlist"
           value={selectedWatchlist || ""}
           onChange={(e) => setSelectedWatchlist(e.target.value)}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           <option value="" disabled>
             Select a Watchlist
@@ -60,7 +63,15 @@ const HomeMovie = ({ movie }) => {
               </option>
             ))}
         </select>
-        <button className="add-to-btn" onClick={handleAddToWatchlist}>Add to Watchlist</button>
+        <button
+          className="add-to-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleAddToWatchlist();
+          }}
+        >
+          Add to Watchlist
+        </button>
         {message && <p>{message}</p>}
       </div>
     </div>

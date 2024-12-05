@@ -40,7 +40,7 @@ const WatchlistDetails = () => {
   }
 
   return (
-    <div>
+    <div className="whole-page">
       <h1 className="watchlist-title">Watchlist Movies</h1>
       <h2 className="watchlist-title">{watchlist.name}</h2>
       {movies && movies.length > 0 ? (

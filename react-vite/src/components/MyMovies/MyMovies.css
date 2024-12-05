@@ -1,12 +1,21 @@
+
+.my-movies-container {
+    background-color: var(--red-clr);
+    padding: 1.5rem;
+}
+
 .movies-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin: 30px 30px;
+    gap: 1.5rem;
 }
 
-.message-text,
 .my-movies-title {
-
+ margin: 0;
+ padding: 0.5rem;
+ display: flex;
+ justify-content: center;
+ color: white;
 }
 
 

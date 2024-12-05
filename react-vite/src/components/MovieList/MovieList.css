@@ -1,7 +1,9 @@
 .movie-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin: 30px 30px;
+    background-color: var(--red-clr);
+    padding: 1.5rem;
+    gap: 1.5rem;
 }
 
 /* Responsive Layout:  */

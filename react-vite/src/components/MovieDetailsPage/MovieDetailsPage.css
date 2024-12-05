@@ -1,11 +1,73 @@
 .movie-details-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--red-clr);
+    min-height: 100dvh;
+    padding: 1rem 1.5rem;
+}
+
+.movie-details-poster {
+    border: solid 3px var(--gold-clr);
+    border-radius: 12px;
+    max-width: 50dvh;
+}
+
+.movie-details-title {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.movie-details-info {
+    background-color: var(--black-clr);
+    color: white;
+    padding: 1.5rem;
+    width: auto;
+    border-radius: 12px;
+    border: solid 2px var(--gold-clr);
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-details-info p {
+    font-size: 18px;
+    max-width: 500px;
+    min-width: 400px;
+}
+
+.movie-actions{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
 
 }
 
-.edit-btn {
-
+.edit-details-btn {
+    background-color: black;
+    border-radius: 8px;
+    color: white;
+    padding: .3rem .6rem;
+    transition: var(--animate);
 }
 
-.edit-btn:hover {
+.edit-details-btn:hover {
+    color: var(--gold-clr);
+    box-shadow: 5px 5px 15px var(--gold-clr);
+}
 
+.delete-details-btn {
+    background-color: black;
+    border-radius: 8px;
+    color: white;
+    padding: .3rem .6rem;
+    transition: var(--animate);
+}
+
+.delete-details-btn:hover {
+    background-color: var(--red-clr);
+    color: white;
 }

@@ -2,24 +2,31 @@
 .movie-card {
     height: auto;
     width: auto;
+    cursor: pointer;
 }
 
 .select-wl-btn {
-
-}
-
-.movie-title {
-
+    display: flex;
+    gap: 1rem;
 }
 
 .add-to-btn {
-
+    background-color: var(--red-clr);
+    color: white;
+    padding: .3rem;
+    border-radius: 12px;
 }
 
 .add-to-btn:hover {
-
+    background-color: black;
+    color: var(--gold-clr);
+    box-shadow: 5px 5px 15px var(--gold-clr);
 }
 
 .select-watchlist {
-
+    background-color: var(--red-clr);
+    color: white;
+    padding: .3rem;
+    border-radius: 12px;
 }
+

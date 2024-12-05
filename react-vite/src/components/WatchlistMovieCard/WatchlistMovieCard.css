@@ -1,20 +1,27 @@
-.movie-card {
-  height: auto;
-  width: auto;
- 
-}
 
 .delete-movie-btn {
+    background-color: black;
+    border-radius: 8px;
+    color: white;
+    padding: 0.4rem 0.6rem;
+    transition: var(--animate);
+    font-size: 16px;
+    margin-bottom: 20px;
   
-}
+  }
+  
+  .delete-movie-btn:hover {
+    background-color: black;
+    color: var(--red-clr);
+    box-shadow: 5px 5px 15px var(--red-clr);
+  }
 
-.delete-movie-btn:hover {
-  
-}
+
 
 .date,
 .description {
-    
+    color: white;
+    font-size: 18px;
 }
 
 .movie-title {

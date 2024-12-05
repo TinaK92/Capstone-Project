@@ -44,31 +44,31 @@ function LoginFormModal() {
   return (
     <div className="login-mod">
       <h1 className="title">Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
+      <form className="main-form" onSubmit={handleSubmit}>
+        <div className="form-div">
+          <label className="email-title">
             Email 
-            <input
+          </label>
+          <input
               className="email-input"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </label>
         </div>
         {errors.email && <p>{errors.email}</p>}
-        <div>
-          <label>
+        <div className="form-div">
+          <label className="password-title">
             Password 
-            <input
+          </label>
+          <input
               className="password-input"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </label>
         </div>
         {errors.password && <p>{errors.password}</p>}
         <div className="button-div">

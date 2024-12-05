@@ -8,7 +8,7 @@
   /* colors */
   --red-clr: #99251d;
   --gold-clr: #ebbb4a;
-  --black-clr: #07070700;
+  --black-clr: #3a3a3c;
   --grey-clr: #d1d2d4;
 
   /* animation */
@@ -30,7 +30,8 @@ label {
 
 p,
 a,
-input {
+input,
+textarea {
   font-family: var(--ff-primary);
 }
 
@@ -57,4 +58,10 @@ a,
 input,
 label {
   font-size: 16px;
+}
+
+button,
+a,
+select {
+    cursor: pointer;
 }

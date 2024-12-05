@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import LoginFormPage from "../components/LoginFormPage";
-import SignupFormPage from "../components/SignupFormPage";
+// import LoginFormPage from "../components/LoginFormPage";
+// import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import MovieList from "../components/MovieList/MovieList";
 import { HomePage } from "../components/HomePage/HomePage";
@@ -9,6 +9,8 @@ import EditMoviePage from "../components/EditMoviePage/EditMoviePage";
 import { CreateNewWatchListForm } from "../components/MyWatchlist/CreateNewWatchlistForm";
 import WatchlistDetails from "../components/WatchlistDetails/WatchlistDetails";
 import MyMovies from "../components/MyMovies/MyMovies";
+import LoginFormModal from "../components/LoginFormModal";
+import SignupFormModal from "../components/SignupFormModal";
 
 export const router = createBrowserRouter([
   {
@@ -20,11 +22,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <LoginFormPage />,
+        element: <LoginFormModal />,
       },
       {
         path: "signup",
-        element: <SignupFormPage />,
+        element: <SignupFormModal />,
       },
       {
         path: "/movies",

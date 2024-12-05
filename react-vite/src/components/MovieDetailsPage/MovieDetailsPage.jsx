@@ -47,22 +47,23 @@ export const MovieDetailsPage = () => {
       <img
         src={`${movie.image_url}`}
         alt={`${movie.title} Poster`}
-        className="movie-poster"
+        className="movie-details-poster"
       />
-      <h3 className="movie-title">{movie.name}</h3>
+      <div className="movie-details-info">
+      <h3 className="movie-details-title">{movie.name}</h3>
       <p>Release Date: {movie.release_year}</p>
       <p>Description: {movie.description} </p>
       <div>
         {isUserOwner && (
           <div className="movie-actions">
             <button 
-                    className="edit-btn"
+                    className="edit-details-btn"
                     onClick={() => handleEdit(movie.id)}
                 >
                     Edit
                 </button>
                 <button 
-                    className="delete-btn"
+                    className="delete-details-btn"
                     onClick={(e) => {
                         e.stopPropagation();
                         handleDelete(movie.id);
@@ -72,6 +73,7 @@ export const MovieDetailsPage = () => {
                 </button>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

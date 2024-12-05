@@ -1,3 +1,15 @@
-.watchlist-title {
-    justify-self: center;
+.whole-page {
+  background-color: var(--red-clr);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.watchlist-title {
+  justify-self: center;
+  margin: 0;
+  font-size: 54px;
+}
+

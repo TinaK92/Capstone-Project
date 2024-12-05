@@ -7,7 +7,7 @@ import {
 } from "../../redux/watchlist";
 import { useModal } from "../../context/Modal";
 import { Link } from "react-router-dom";
-import './CreateNewWatchlistForm.css';
+import "./CreateNewWatchlistForm.css";
 
 export const CreateNewWatchListForm = () => {
   const dispatch = useDispatch();
@@ -61,51 +61,63 @@ export const CreateNewWatchListForm = () => {
   };
 
   return (
-    <>
-      <div className="create-watchlist-div">
-      <h1 className="create-wl">Create New Watchlist!</h1>
-      <form className="create-wl-form" onSubmit={handleSubmit}>
-        <label className="choose-name">
-          Choose a name for your Watchlist
-          <input
-            type="text"
-            className="input-box"
-            placeholder="Watchlist Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.name && <p className="error">{errors.name}</p>}
-        <button
-          className="create-watchlist-btn"
-          type="submit"
-          disabled={isSubmitting}
-        > 
-          {isSubmitting ? "Creating..." : "Create"}
-        </button>
-      </form>
-      </div>
-      <div className="watchlist-div">
-        <h2 className="watchlist-title">Your Watchlists:</h2>
-        <div className="list-wl">
-        <ul className="watchlist-ul">
-          {watchlists && watchlists.length > 0 ? (
-            watchlists.map((watchlist) => (
-              <ul key={watchlist.id}>
-                <Link className="watchlist-link" to={`/watchlists/${watchlist.id}`}>{watchlist.name}</Link>
-                <button className="delete-btn" onClick={() => handleDelete(watchlist)}>
-                  Delete Watchlist
-                </button>
-              </ul>
-            ))
-          ) : (
-            <p className="no-watchlist-message">No watchlists currently exist</p>
-          )}
-        </ul>
+    <div className="entire-page">
+      <div className="entire-page-content">
+        <div className="create-watchlist-div">
+          <h1 className="create-wl">Create New Watchlist!</h1>
+          <form className="create-wl-form" onSubmit={handleSubmit}>
+            <label className="choose-name">
+              Choose a name for your Watchlist
+            </label>
+            <input
+                type="text"
+                className="input-box"
+                placeholder="Watchlist Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            {errors.name && <p className="error">{errors.name}</p>}
+            <button
+              className="create-watchlist-btn"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Creating..." : "Create"}
+            </button>
+          </form>
+        </div>
+        <div className="watchlist-div">
+          <h2 className="watchlist-title">Your Watchlists:</h2>
+          <div className="list-wl">
+            <ul className="watchlist-ul">
+              {watchlists && watchlists.length > 0 ? (
+                watchlists.map((watchlist) => (
+                  <ul key={watchlist.id}>
+                    <Link
+                      className="watchlist-link"
+                      to={`/watchlists/${watchlist.id}`}
+                    >
+                      {watchlist.name}
+                    </Link>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(watchlist)}
+                    >
+                      Delete Watchlist
+                    </button>
+                  </ul>
+                ))
+              ) : (
+                <p className="no-watchlist-message">
+                  No watchlists currently exist
+                </p>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

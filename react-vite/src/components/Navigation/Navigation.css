@@ -4,7 +4,16 @@
   justify-content: space-between;
   align-items: center; /* Align items vertically in the center */
   padding: 10px 20px;
+  background-color: var(--black-clr);
+  /* position: fixed; */
+  z-index: 1000;
+  
 }
+
+/* .main-content{
+  margin-top: 70px;
+  position: relative;
+} */
 
 .search-form {
   display: flex;
@@ -27,14 +36,17 @@
   justify-self: center;
   align-self: center;
   border-radius: 8px;
-  border: 1px solid var(--gold-clr);
   border-radius: 14px;
-  padding: 0.3em 1.3em;
+  padding: 0.5em 1.3em;
   transition: all 0.3s ease-in-out;
+  color: white;
+  background-color: var(--red-clr);
 }
 
 .search-button:hover {
   box-shadow: 0px 2px 24px 2px var(--gold-clr);
+  background-color: black;
+  color: var(--gold-clr);
 }
 
 .profile-div {
@@ -56,8 +68,8 @@
 
 .profile-btn:hover {
   background-color: black;
-  color: var(--red-clr);
-  
+  color: var(--gold-clr);
+  box-shadow: 0px 2px 24px 2px var(--gold-clr);
 }
 
 .my-movies,
@@ -65,11 +77,13 @@
   text-decoration: none;
   cursor: pointer;
   justify-content: center;
+  color: white;
 }
 
 .my-movies:hover,
 .my-watchlist:hover {
   text-decoration: underline;
+  color: var(--gold-clr);
 }
 
 .user-name,
@@ -77,6 +91,7 @@
   font-size: 22px;
   margin-bottom: 10px;
   justify-self: center;
+  color: white;
 }
 
 /* Dropdown menu */
@@ -86,10 +101,13 @@
   right: 30px; 
   border-radius: 8px;
   padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px var(--gold-clr);
   z-index: 1000;
   width: auto;
   justify-self: center;
+  background-color: var(--black-clr);
+  color: white;
+  font-size: 24px;
 }
 
 .profile-dropdown.hidden {
@@ -116,8 +134,27 @@
 
 .log-out {
   border-radius: 12px;
+  background-color: black;
+  border-radius: 8px;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  transition: var(--animate);
+}
+
+.log-out:hover {
+  color: var(--gold-clr);
+  box-shadow: 5px 5px 15px var(--gold-clr);
 }
 
 .logo {
- 
+  font-family: var(--ff-header);
+  color: white;
+  text-decoration: none;
+  font-size: 36px;
+  font-weight: 800;
+  transition: var(--animate);
+}
+
+.logo:hover {
+  color: var(--gold-clr);
 }

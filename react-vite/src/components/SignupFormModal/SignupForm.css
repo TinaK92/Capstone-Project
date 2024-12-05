@@ -1,15 +1,61 @@
 .sign-up-div {
+  background-color: var(--black-clr);
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  box-shadow: 5px 5px 15px var(--gold-clr), -5px -5px 15px var(--gold-clr);
 
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+
+}
+
+.signup-form label {
+  color: white;
+  font-size: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.signup-title {
+  margin: 0;
+  color: white;
 }
 
 .input-field {
-
+  width: 280px;
 }
 
 .sign-button {
-
+  width: fit-content;
+  justify-content: center;
+  background-color: black;
+  border-radius: 8px;
+  color: white;
+  padding: 0.5rem 0.6rem;
+  transition: var(--animate);
+  font-size: 14px;
 }
 
 .sign-button:hover {
-
+  color: var(--gold-clr);
+  box-shadow: 5px 5px 15px var(--gold-clr), -5px -5px 15px var(--gold-clr);
 }

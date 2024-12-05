@@ -18,14 +18,16 @@ function SignupFormModal() {
   const [serverErrors, setServerErrors] = useState({
     username: [],
     email: [],
-  })
+  });
   const { closeModal } = useModal();
-  console.log("THIS IS SERVER ERRORS", serverErrors)
+  console.log("THIS IS SERVER ERRORS", serverErrors);
 
   const validateInputs = () => {
     const newErrors = {};
-    if (firstName.length < 2) newErrors.firstName = "First name must have 2-15 characters";
-    if (lastName.length < 2) newErrors.lastName = "Last name must have 2-15 characters"
+    if (firstName.length < 2)
+      newErrors.firstName = "First name must have 2-15 characters";
+    if (lastName.length < 2)
+      newErrors.lastName = "Last name must have 2-15 characters";
     if (!email.includes("@")) newErrors.email = "Please enter a valid email.";
     if (username.trim().length < 3)
       newErrors.username = "Username must be at least 3 characters.";
@@ -45,34 +47,35 @@ function SignupFormModal() {
       setErrors(newErrors);
       return;
     }
-
-    const serverResponse = await dispatch(
-      thunkSignup({
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        username,
-        password,
-      })
-    );
-
-    if (serverResponse.errors) {
-      console.log("THIS IS THE SERVER RESONSE ERROR", serverResponse)
-        setServerErrors(serverResponse.errors);
-    } else {
+    try {
+      const serverResponse = await dispatch(
+        thunkSignup({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          username,
+          password,
+        })
+      );
+      navigate("/");
       closeModal();
-      navigate('/')
+    } catch (e) {
+      console.log("E=========", e)
     }
+    if (serverResponse.errors) {
+      console.log("THIS IS THE SERVER RESONSE ERROR", serverResponse);
+      setServerErrors(serverResponse.errors);
+    } 
   };
 
   return (
     <div className="sign-up-div">
-      <h1>Sign Up</h1>
+      <h1 className="signup-title">Sign Up</h1>
       {serverErrors.username && <p>{serverErrors.username[0]}</p>}
       {serverErrors.email && <p>{serverErrors.email[1]}</p>}
-      <form onSubmit={handleSubmit}>
-      <label>
-          First Name
+      <div className="signup-inputs">
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <label>First Name</label>
           <input
             className="input-field"
             type="text"
@@ -80,10 +83,8 @@ function SignupFormModal() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
+          {errors.firstName && <p>{errors.firstName}</p>}
+          <label>Last Name</label>
           <input
             className="input-field"
             type="text"
@@ -91,10 +92,8 @@ function SignupFormModal() {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-        </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
-          Email
+          {errors.lastName && <p>{errors.lastName}</p>}
+          <label>Email</label>
           <input
             className="input-field"
             type="text"
@@ -102,10 +101,8 @@ function SignupFormModal() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
+          {errors.email && <p>{errors.email}</p>}
+          <label>Username</label>
           <input
             className="input-field"
             type="text"
@@ -113,10 +110,8 @@ function SignupFormModal() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
+          {errors.username && <p>{errors.username}</p>}
+          <label>Password</label>
           <input
             className="input-field"
             type="password"
@@ -124,21 +119,21 @@ function SignupFormModal() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
+          {errors.password && <p>{errors.password}</p>}
+          <label>Confirm Password</label>
           <input
-          className="input-field"
+            className="input-field"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button className="sign-button" onClick={handleSubmit} type="submit">Sign Up</button>
-      </form>
+          {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        </form>
+        <button className="sign-button" onClick={handleSubmit} type="submit">
+          Sign Up
+        </button>
+      </div>
     </div>
   );
 }

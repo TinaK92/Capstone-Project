@@ -1,28 +1,53 @@
 /* Movie Image */
 .movie-poster {
-  height: 200px;
-  width: 150px;
+  height: 300px;
+  width: auto;
   display: flex;
-  justify-self: center;
-  margin: 30px 30px;
+  border-radius: 12px;
+  border: solid 2px var(--gold-clr);
 }
 /* Each individual movie card container */
 .movie-card {
-  
+  background-color: var(--black-clr);
+  height: 500px;
+  width: 300px;
+  border-radius: 12px;
+  padding: .5rem;
+  border: solid 3px;
+  transition: var(--animate);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.movie-card:hover {
+  box-shadow: 5px 5px 15px var(--gold-clr);
 }
 
 .movie-title {
   display: flex;
   justify-self: center;
-  
+  color: white;
+  max-width: 250px;
+  margin: 0;
+  padding: .5rem 0;
+  text-align: center;
+  font-weight: 900;
+  font-size: 38px;
 }
 
 .add-movie-btn {
-  
+  background-color: var(--red-clr);
+  color: white;
+  padding: .5rem 1rem;
+  border-radius: 12px;
 }
 
 .add-movie-btn:hover {
-  
+  background-color: black;
+  color: var(--gold-clr);
+  box-shadow: 5px 5px 15px var(--gold-clr), -5px -5px 15px var(--gold-clr);
 }
 
 .movie-btn-div {
@@ -35,5 +60,5 @@
 
 
 .movie-info {
-  
+  color: white;
 }

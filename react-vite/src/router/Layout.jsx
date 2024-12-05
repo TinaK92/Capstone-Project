@@ -15,17 +15,11 @@ export default function Layout() {
     dispatch(thunkAuthenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (isLoaded && !sessionUser) {
-      navigate('/login');
-    }
-  }, [isLoaded, sessionUser, navigate])
-
   return (
     <>
       <ModalProvider>
         <Navigation />
-        {isLoaded && <Outlet />}
+        <div className="main-content">{isLoaded && <Outlet />}</div>
         <Modal />
       </ModalProvider>
     </>

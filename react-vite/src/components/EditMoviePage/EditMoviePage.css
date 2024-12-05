@@ -1,24 +1,67 @@
-
-.submit-update {
-
-  }
-  
-  .submit-update:hover {
-
-  }
-  
-.edit-title {
-
+.heading {
+  background-color: var(--red-clr);
 }
 
-.text-box {
+.movie-details-div {
+  padding-top: 0;
+}
 
+.movie-details-poster {
+  background-color: var(--red-clr);
+}
+
+.movie-details-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-title {
+  display: flex;
+  justify-content: center;
+  background-color: var(--red-clr);
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 0;
+  color: white;
+}
+
+.form-details {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
 
 .edit-text {
-
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
 }
 
-.movie-title {
+.text-box {
+  font-size: 16px;
+}
 
+.form-details label {
+  font-size: 50px;
+}
+
+.submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-update {
+  background-color: black;
+  border-radius: 8px;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  transition: var(--animate);
+}
+
+.submit-update:hover {
+  color: var(--gold-clr);
+  box-shadow: 5px 5px 15px var(--gold-clr);
 }
