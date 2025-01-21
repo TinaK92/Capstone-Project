@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUpdateMovie } from "../../redux/movie";
+import { fetchAllCategories } from "../../redux/category";
 import "./EditMoviePage.css";
 import "../MovieDetailsPage/MovieDetailsPage.css";
 
@@ -9,31 +10,49 @@ const EditMoviePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  // const user = useSelector((state) => state.session.user);
   const movie = useSelector((state) => state.movies.selectedMovie);
+  const categories = useSelector((state) => state.categories.categories);
+  console.log("Redux Categories: ", categories);
   const [description, setDescription] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [errors, setErrors] = useState({});
 
-  // useEffect(() => {
-  //     dispatch(fetchUpdateMovie(id))
-  // }, [dispatch, id])
-
+  // Populate form fields when the movie or categories are loaded
   useEffect(() => {
     if (movie) {
-      setDescription(movie.description);
+      setDescription(movie.description || "");
+      if (movie.categories && Array.isArray(movie.categories)) {
+        setSelectedCategories(movie.categories.map((category) => category.id));
+      }
     }
   }, [movie]);
 
+  useEffect(() => {
+    console.log("Fetching categories...");
+    dispatch(fetchAllCategories());
+  }, [dispatch]);
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const newErrors = {};
     if (!description.trim()) {
-      setErrors({ description: "Description cannot be empty" });
+      newErrors.description = "Description cannot be empty";
+    }
+    if (selectedCategories.length === 0) {
+      newErrors.categories = "At least one genre must be selected";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
     const updatedMovie = {
       ...movie,
-      description: description,
+      description,
+      category_ids: selectedCategories, // Send selected category IDs to the backend
     };
 
     const response = await dispatch(fetchUpdateMovie(id, updatedMovie));
@@ -45,7 +64,15 @@ const EditMoviePage = () => {
     }
   };
 
-  if (!movie) {
+  // Handle multi-select dropdown change
+  const handleCategoryChange = (e) => {
+    const selectedOptions = Array.from(e.target.selectedOptions).map((option) =>
+      Number(option.value)
+    );
+    setSelectedCategories(selectedOptions);
+  };
+
+  if (!movie || !categories) {
     return <p>Loading movie info...</p>;
   }
 
@@ -54,7 +81,7 @@ const EditMoviePage = () => {
       <h1 className="edit-title">Edit Movie</h1>
       <div className="movie-details-div">
         <img
-          src={`${movie.image_url}`}
+          src={movie.image_url}
           alt={`${movie.name} Poster`}
           className="movie-details-poster"
         />
@@ -73,6 +100,22 @@ const EditMoviePage = () => {
               />
               {errors.description && (
                 <p className="error">{errors.description}</p>
+              )}
+              <label>Genre:</label>
+              <select
+                className="dropdown"
+                value={selectedCategories}
+                onChange={handleCategoryChange}
+                multiple
+              >
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              {errors.categories && (
+                <p className="error">{errors.categories}</p>
               )}
               {errors.server && <p className="error">{errors.server}</p>}
             </div>

@@ -64,4 +64,5 @@ button,
 a,
 select {
     cursor: pointer;
+    font-family: var(--ff-primary);
 }

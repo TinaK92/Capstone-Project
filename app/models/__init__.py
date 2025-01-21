@@ -4,8 +4,8 @@ from .user import User
 from .movie import Movie
 from .watchlist import Watchlist
 # from .comment import Comment
-# from .category import Category
-# from .movie_category import MovieCategory
+from .category import Category
+from .movie_category import movie_categories
 # from .review import Review
 
 # __all__ = [
