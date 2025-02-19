@@ -7,7 +7,9 @@ Create Date: 2024-12-02 13:16:11.606213
 """
 from alembic import op
 import sqlalchemy as sa
-
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '52e0fac8a252'
@@ -31,6 +33,8 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     op.create_table('movies',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -43,6 +47,9 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE movies SET SCHEMA {SCHEMA};")
+
     op.create_table('watchlists',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -51,6 +58,9 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE watchlists SET SCHEMA {SCHEMA};")
+
     op.create_table('watchlist_movies',
     sa.Column('watchlist_id', sa.Integer(), nullable=False),
     sa.Column('movie_id', sa.Integer(), nullable=False),
@@ -58,6 +68,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['watchlist_id'], ['watchlists.id'], ),
     sa.PrimaryKeyConstraint('watchlist_id', 'movie_id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE watchlist_movies SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
