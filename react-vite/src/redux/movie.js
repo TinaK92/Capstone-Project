@@ -5,6 +5,7 @@ const GET_USER_MOVIES = "movies/GET_USER_MOVIES";
 const ADD_NEW_MOVIE = "movies/ADD_NEW_MOVIE";
 const UPDATE_MOVIE = "movies/UPDATE_MOVIE";
 const DELETE_MOVIE = "movies/DELETE_MOVIE";
+const CLEAR_SELECTED = "movies/CLEAR_SELECTED";
 
 // Actions
 export const getAllMovies = (movies) => {
@@ -46,6 +47,12 @@ export const deleteMovie = (movieId) => {
   return {
     type: DELETE_MOVIE,
     payload: movieId,
+  };
+};
+
+export const clearSelected = () => {
+  return {
+    type: CLEAR_SELECTED,
   };
 };
 
@@ -109,16 +116,20 @@ export const fetchAddMovie = (formData) => async (dispatch) => {
 };
 
 // Update A Movie
-export const fetchUpdateMovie = (movieId, updatedMovie) => async () => {
+export const fetchUpdateMovie = (movieId, updatedMovie) => async (dispatch) => {
   try {
     const response = await fetch(`/api/movies/${movieId}/edit`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ description: updatedMovie.description }),
+      body: JSON.stringify({ 
+        description: updatedMovie.description, 
+        category_ids: updatedMovie.category_ids,
+      }),
     });
 
     if (response.ok) {
       const updatedMovieData = await response.json();
+      dispatch(updateMovie(updatedMovieData));
       return updatedMovieData;
     } else {
       const error = await response.json();
@@ -172,6 +183,11 @@ function movieReducer(state = initialState, action) {
           ...state.watchlistMovies,
           [action.payload.id]: action.payload,
         },
+        selectedMovie: 
+          state.selectedMovie.id === action.payload.id 
+            ? action.payload
+            : state.selectedMovie,
+        
       };
     case DELETE_MOVIE:
       return {
@@ -184,6 +200,8 @@ function movieReducer(state = initialState, action) {
             ? {}
             : state.watchlistMovies,
       };
+    case CLEAR_SELECTED:
+      return { ...state, selectedMovie: {} };
     default:
       return state;
   }

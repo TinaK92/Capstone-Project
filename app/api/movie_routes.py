@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
-from app.models import Movie, db
+from app.models import Movie, db, Category, movie_categories
 from dotenv import load_dotenv
 import os
 import requests
@@ -133,18 +133,34 @@ def update_movie(movie_id):
     if movie.user_id != current_user.id:
         return {"error": "Unauthorized"}, 403
 
-    # Parse the request JSON for the description
+    # Parse the request JSON for the description and category IDs
     data = request.get_json()
     description = data.get("description")
+    selected_categories = data.get("category_ids", [])
 
     if not description or not description.strip():
         return {"error": "Description cannot be empty"}, 400
 
-    # Update the description and save to the database
+    # Update the description
     movie.description = description
+
+    # Update categories
+    if selected_categories:
+        categories = Category.query.filter(Category.id.in_(selected_categories)).all()
+        if len(categories) != len(selected_categories):
+            missing_ids = set(selected_categories) - {category.id for category in categories}
+            return {"error": f"Categories with ids {missing_ids} not found"}, 400
+        movie.categories = categories  # Replace all categories with new ones
+
+    # Commit changes to the database
     db.session.commit()
 
-    return movie.to_dict(), 200
+    return {
+        "message": "Movie updated successfully",
+        "movie": movie.to_dict(),
+        "categories": [category.to_dict() for category in movie.categories],
+    }, 200
+
 
 
 # Delete A Movie

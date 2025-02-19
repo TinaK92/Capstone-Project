@@ -9,6 +9,7 @@ import sessionReducer from "./session";
 import movieReducer from "./movie";
 import movieDbReducer from "./themoviedb";
 import watchlistReducer from "./watchlist";
+import categoryReducer from "./category";
 
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   movies: movieReducer,
   movieDb: movieDbReducer,
   watchlist: watchlistReducer,
+  categories: categoryReducer,
 });
 
 let enhancer;

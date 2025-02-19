@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .movie_category import movie_categories
 
 
 class Movie(db.Model):
@@ -21,11 +22,12 @@ class Movie(db.Model):
 
     # Relationships
     user = db.relationship("User", back_populates="movies")
-
-    # movie_categories = db.relationship('MovieCategory', back_populates='movie', cascade='all, delete-orphan')
-    # comments = db.relationship('Comment', back_populates='movie', cascade='all, delete-orphan')
-    # reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
-    # watchlist_movies = db.relationship("WatchlistMovies", back_populates="movie")
+    categories = db.relationship(
+        'Category',
+        secondary=movie_categories,
+        back_populates='movies'
+    )
+    
     watchlists = db.relationship(
         "Watchlist", secondary="watchlist_movies", back_populates="movies"
     )
@@ -40,4 +42,10 @@ class Movie(db.Model):
             "image_url": self.image_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
+            "categories": [category.name for category in self.categories],
         }
+    
+
+    # comments = db.relationship('Comment', back_populates='movie', cascade='all, delete-orphan')
+    # reviews = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
+    # watchlist_movies = db.relationship("WatchlistMovies", back_populates="movie")
